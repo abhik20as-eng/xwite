@@ -119,40 +119,145 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .net-search{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:7px;margin-bottom:14px;transition:border-color .2s;}
 .net-search:focus-within{border-color:#ffffff;}
 .net-search input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'DM Sans',sans-serif;}
-.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
 
-/* ── PROFILE CARD — LinkedIn card style, XWITE dark palette ── */
-.pcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s;display:flex;flex-direction:column;}
-.pcard:hover{border-color:rgba(255,255,255,.18);box-shadow:0 6px 28px rgba(0,0,0,.55);}
-/* Banner — solid dark bg, avatar overlaps from centre bottom */
-.pcard-banner{height:80px;position:relative;overflow:visible;flex-shrink:0;background:linear-gradient(160deg,#1a1a1a 0%,#0f0f0f 100%);}
-.pcard-banner-inner{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 14px);}
-/* X dismiss button top-right like LinkedIn */
-.pcard-dismiss{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(20,20,20,.8);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:12px;transition:all .2s;z-index:3;line-height:1;}
-.pcard-dismiss:hover{background:rgba(255,255,255,.12);color:#fff;}
-/* Large avatar centred, half-overlapping banner */
-.pcard-av-wrap{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);z-index:2;}
-.pcard-av{width:82px;height:82px;border-radius:50%;background:linear-gradient(135deg,#2c2c2c,#1a1a1a);border:3px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#ffffff;box-shadow:0 4px 20px rgba(0,0,0,.7);}
-/* Card body — centred text, like LinkedIn */
-.pcard-body{padding:48px 14px 14px;text-align:center;display:flex;flex-direction:column;flex:1;}
-/* Name bold */
-.pcard-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#ffffff;line-height:1.3;margin-bottom:3px;}
-/* Verified badge inline */
-.pcard-verified{display:inline;width:13px;height:13px;vertical-align:middle;margin-left:3px;opacity:.7;}
-/* Handle / role line — muted, 2 lines max */
-.pcard-handle{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-/* Stats row — rate · rating · spent */
-.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
-.pcard-stat-cell{padding:9px 6px;text-align:center;border-right:1px solid var(--border);}
-.pcard-stat-cell:last-child{border-right:none;}
-.pcard-stat-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#ffffff;margin-bottom:2px;}
-.pcard-stat-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);}
+/* ── PROFILE CARD — LinkedIn style ── */
+.pcard{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  position:relative;
+}
+.pcard:hover{
+  border-color:rgba(255,255,255,.2);
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  transform:translateY(-2px);
+}
+
+/* Banner area */
+.pcard-banner{
+  height:72px;
+  position:relative;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#1c1c1c 0%,#0e0e0e 100%);
+  overflow:hidden;
+}
+.pcard-banner-inner{
+  position:absolute;
+  inset:0;
+  background-image:repeating-linear-gradient(
+    -55deg,
+    rgba(255,255,255,.025) 0px,rgba(255,255,255,.025) 1px,
+    transparent 1px,transparent 14px
+  );
+}
+
+/* X dismiss */
+.pcard-dismiss{
+  position:absolute;top:8px;right:8px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(10,10,10,.75);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:#888;font-size:12px;
+  transition:all .2s;z-index:5;line-height:1;
+}
+.pcard-dismiss:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+/* Avatar — centred, overlapping banner */
+.pcard-av-wrap{
+  position:absolute;
+  bottom:-38px;
+  left:50%;transform:translateX(-50%);
+  z-index:4;
+}
+.pcard-av{
+  width:76px;height:76px;border-radius:50%;
+  background:linear-gradient(135deg,#2e2e2e,#1a1a1a);
+  border:3px solid var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.8);
+}
+
+/* Card body */
+.pcard-body{
+  padding:46px 14px 14px;
+  text-align:center;
+  display:flex;flex-direction:column;flex:1;
+}
+
+/* Name row */
+.pcard-name{
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:800;
+  color:#ffffff;line-height:1.25;margin-bottom:4px;
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  flex-wrap:wrap;
+}
+.pcard-verified{width:13px;height:13px;flex-shrink:0;opacity:.65;}
+
+/* Handle / role */
+.pcard-handle{
+  font-size:11px;color:var(--text2);line-height:1.5;
+  margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* Mutual / followers line */
+.pcard-followers{
+  font-size:11px;color:var(--muted);margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;gap:4px;
+}
+.pcard-followers-dot{
+  width:3px;height:3px;border-radius:50%;background:var(--muted);
+}
+
 /* Availability pill */
-.pcard-avail{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;margin:0 auto 10px;}
+.pcard-avail{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;
+  margin:0 auto 10px;
+}
 .pcard-avail.avail-yes{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);color:#bbbbbb;}
 .pcard-avail.avail-no{background:rgba(60,60,60,.1);border:1px solid rgba(60,60,60,.18);color:var(--muted);}
-/* Footer: full-width pill button — like LinkedIn "Connect" */
+
+/* Divider */
+.pcard-divider{
+  height:1px;background:var(--border);margin:0 -14px 12px;
+}
+
+/* Footer */
 .pcard-footer{margin-top:auto;}
+.connect-btn{
+  width:100%;
+  background:transparent;
+  color:#ffffff;
+  border:1.5px solid rgba(255,255,255,.35);
+  border-radius:99px;
+  padding:8px 0;
+  font-size:12px;font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+  font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  letter-spacing:.3px;
+}
+.connect-btn:hover{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.75);
+}
+.connect-btn.connected{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.15);
+  color:var(--text2);
+}
+
+/* msg-btn kept for back-compat elsewhere */
 .msg-btn{width:100%;background:transparent;color:#ffffff;border:1.5px solid rgba(255,255,255,.32);border-radius:99px;padding:8px 0;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;letter-spacing:.1px;}
 .msg-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.7);}
 
@@ -227,7 +332,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .plan-features{list-style:none;margin-top:10px;text-align:left;}
 .plan-features li{font-size:11px;color:var(--text2);padding:3px 0;display:flex;align-items:flex-start;gap:5px;}
 .plan-features li::before{content:'✓';color:#fff;font-weight:700;font-size:10px;flex-shrink:0;}
-/* Spending tracker */
 .spend-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;}
 .spend-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
 .spend-total{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#ffffff;margin-bottom:2px;}
@@ -348,9 +452,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .right-panel,.debate-panel{display:none;}
   .chat-window{bottom:70px;right:10px;width:calc(100vw - 20px);}
   .people-panel{width:100%;}
-  .net-grid{grid-template-columns:1fr;}
+  .net-grid{grid-template-columns:1fr 1fr;}
   .premium-plans{grid-template-columns:1fr;}
   .task-budget-row,.rate-row{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .net-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:1024px){
   .feed-grid{grid-template-columns:1fr;}
@@ -427,7 +534,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <span class="mob-nav-label">Network</span>
   </button>
   <button class="mob-nav-btn" id="mnConnect" onclick="showPage('connect');setMobActive('mnConnect')">
-    <!-- Briefcase icon for Connect/Tasks -->
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/><path d="M2 13h20"/></svg>
     <span class="mob-nav-label">Tasks</span>
     <div class="mob-nav-badge">3</div>
@@ -748,7 +854,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <!-- ═══════════ BUSINESS: FIND WORK ═══════════ -->
       <div class="page" id="page-bizfind">
         <div style="max-width:680px;">
-          <!-- Cover + Avatar Upload -->
           <div style="position:relative;margin-bottom:50px;">
             <div onclick="document.getElementById('bizBnr').click()" style="height:120px;border-radius:14px;background:linear-gradient(135deg,#1a1a1a,#0d0d0d);position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--border);">
               <div id="bizBnrPrev" style="position:absolute;inset:0;background-size:cover;background-position:center;"></div>
@@ -778,68 +883,29 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
           <div class="form-section">
             <div class="form-section-title">👤 Profile Details</div>
-            <div class="form-row">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-input" value="Ravi Kumar">
-            </div>
-            <div class="form-row">
-              <label class="form-label">Professional Title</label>
-              <input type="text" class="form-input" value="Frontend Developer · React Specialist">
-            </div>
-            <div class="form-row">
-              <label class="form-label">Company / Organisation <span class="optional-badge">Optional</span></label>
-              <input type="text" class="form-input" placeholder="e.g. Freelance, Google, Startup name...">
-            </div>
-            <div class="form-row">
-              <label class="form-label">Location</label>
-              <input type="text" class="form-input" placeholder="City, Country" value="Mumbai, India">
-            </div>
-            <div class="form-row">
-              <label class="form-label">Bio</label>
-              <textarea class="form-input form-textarea">I'm a frontend developer with 4 years of React experience. I specialize in dashboards, SaaS platforms, and performance optimization.</textarea>
-            </div>
-            <div class="form-row">
-              <label class="form-label">Skills</label>
-              <input type="text" class="form-input" value="React, TypeScript, Tailwind CSS, Next.js, Node.js">
-            </div>
+            <div class="form-row"><label class="form-label">Full Name</label><input type="text" class="form-input" value="Ravi Kumar"></div>
+            <div class="form-row"><label class="form-label">Professional Title</label><input type="text" class="form-input" value="Frontend Developer · React Specialist"></div>
+            <div class="form-row"><label class="form-label">Company / Organisation <span class="optional-badge">Optional</span></label><input type="text" class="form-input" placeholder="e.g. Freelance, Google, Startup name..."></div>
+            <div class="form-row"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Country" value="Mumbai, India"></div>
+            <div class="form-row"><label class="form-label">Bio</label><textarea class="form-input form-textarea">I'm a frontend developer with 4 years of React experience. I specialize in dashboards, SaaS platforms, and performance optimization.</textarea></div>
+            <div class="form-row"><label class="form-label">Skills</label><input type="text" class="form-input" value="React, TypeScript, Tailwind CSS, Next.js, Node.js"></div>
           </div>
 
           <div class="form-section">
             <div class="form-section-title">💰 Rate & Availability</div>
             <div class="rate-row">
-              <div class="form-row" style="margin-bottom:0">
-                <label class="form-label">Hourly Rate</label>
-                <input type="text" class="form-input" value="₹2,500/hr">
-              </div>
-              <div class="form-row" style="margin-bottom:0">
-                <label class="form-label">Availability</label>
-                <select class="form-input" style="appearance:none;cursor:pointer;">
-                  <option>Available Now</option>
-                  <option>Available in 2 Weeks</option>
-                  <option>Part-time Only</option>
-                  <option>Not Available</option>
-                </select>
-              </div>
+              <div class="form-row" style="margin-bottom:0"><label class="form-label">Hourly Rate</label><input type="text" class="form-input" value="₹2,500/hr"></div>
+              <div class="form-row" style="margin-bottom:0"><label class="form-label">Availability</label><select class="form-input" style="appearance:none;cursor:pointer;"><option>Available Now</option><option>Available in 2 Weeks</option><option>Part-time Only</option><option>Not Available</option></select></div>
             </div>
           </div>
 
           <div class="form-section">
             <div class="form-section-title">🔗 Portfolio Links <span class="optional-badge">Optional</span></div>
-            <div class="link-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:#fff"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              <input type="text" placeholder="github.com/yourusername" value="github.com/ravikumar">
-            </div>
-            <div class="link-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#888"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              <input type="text" placeholder="linkedin.com/in/yourprofile" value="linkedin.com/in/ravikumar">
-            </div>
-            <div class="link-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#888"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              <input type="text" placeholder="yourportfolio.com (optional)">
-            </div>
+            <div class="link-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:#fff"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg><input type="text" placeholder="github.com/yourusername" value="github.com/ravikumar"></div>
+            <div class="link-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#888"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg><input type="text" placeholder="linkedin.com/in/yourprofile" value="linkedin.com/in/ravikumar"></div>
+            <div class="link-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#888"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><input type="text" placeholder="yourportfolio.com (optional)"></div>
           </div>
 
-          <!-- PREMIUM REQUIRED BEFORE AGENT -->
           <div class="premium-gate">
             <div class="premium-crown">👑</div>
             <div class="premium-title">Premium Required</div>
@@ -849,46 +915,24 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                 <div class="plan-name">Monthly</div>
                 <div class="plan-price">₹599</div>
                 <div class="plan-period">per month</div>
-                <ul class="plan-features">
-                  <li>Agent Job Hunting</li>
-                  <li>Priority in Network</li>
-                  <li>Unlimited matches</li>
-                </ul>
+                <ul class="plan-features"><li>Agent Job Hunting</li><li>Priority in Network</li><li>Unlimited matches</li></ul>
                 <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:10px;" onclick="subscribePremium('monthly')">Select Monthly</button>
               </div>
               <div class="plan-card recommended">
                 <div class="plan-name">Yearly</div>
                 <div class="plan-price">₹399</div>
                 <div class="plan-period">per month · billed ₹4,788/yr</div>
-                <ul class="plan-features">
-                  <li>Everything in Monthly</li>
-                  <li>Save 33% vs monthly</li>
-                  <li>Early access to features</li>
-                  <li>Agent analytics dashboard</li>
-                </ul>
+                <ul class="plan-features"><li>Everything in Monthly</li><li>Save 33% vs monthly</li><li>Early access to features</li><li>Agent analytics dashboard</li></ul>
                 <button class="btn btn-primary btn-sm" style="width:100%;margin-top:10px;" onclick="subscribePremium('yearly')">Start Yearly ✦</button>
               </div>
             </div>
           </div>
 
-          <!-- AGENT SECTION (unlocked after premium) -->
           <div id="agentSection" style="display:none;">
             <div class="form-section" style="border-color:rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));">
-              <div class="form-section-title" style="display:flex;align-items:center;gap:8px;">🤖 Enable Agent Job Hunting
-                <span style="background:#ffffff;color:#000;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;">PREMIUM</span>
-              </div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;">
-                <div style="font-size:12px;color:var(--text2);line-height:1.8;">
-                  • Scans all task listings every hour<br>
-                  • Matches tasks to your lens + skills + rate<br>
-                  • Sends intro: <em style="color:#fff;">"Hi, I'm Agent RAVI-7 representing Ravi Kumar. I reviewed your task — you need a Frontend Developer. Ravi specialises in React and is available now. Want to connect?"</em><br>
-                  • Notifies you of every match and response
-                </div>
-              </div>
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:rgba(255,255,255,.04);border-radius:9px;border:1px solid rgba(255,255,255,.1);">
-                <div><div style="font-size:13px;font-weight:600;">Agent Job Hunting</div><div style="font-size:11px;color:var(--muted);">Included with Premium</div></div>
-                <button class="btn btn-primary" onclick="enableAgent()">Enable Agent →</button>
-              </div>
+              <div class="form-section-title" style="display:flex;align-items:center;gap:8px;">🤖 Enable Agent Job Hunting<span style="background:#ffffff;color:#000;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;">PREMIUM</span></div>
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:12px;color:var(--text2);line-height:1.8;">• Scans all task listings every hour<br>• Matches tasks to your lens + skills + rate<br>• Sends intro: <em style="color:#fff;">"Hi, I'm Agent RAVI-7 representing Ravi Kumar..."</em><br>• Notifies you of every match and response</div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:rgba(255,255,255,.04);border-radius:9px;border:1px solid rgba(255,255,255,.1);"><div><div style="font-size:13px;font-weight:600;">Agent Job Hunting</div><div style="font-size:11px;color:var(--muted);">Included with Premium</div></div><button class="btn btn-primary" onclick="enableAgent()">Enable Agent →</button></div>
             </div>
           </div>
 
@@ -907,45 +951,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <div class="biz-hero-title">Post a Task</div>
             <div class="biz-hero-sub">Describe what you need done. Matching professionals will see it immediately.</div>
           </div>
-
           <div class="form-section">
             <div class="form-section-title">📝 Task Details</div>
-            <div class="form-row">
-              <label class="form-label">Task Title</label>
-              <input type="text" class="form-input" placeholder="e.g. Build a React dashboard for fintech app">
-            </div>
-            <div class="form-row">
-              <label class="form-label">Description</label>
-              <textarea class="form-input form-textarea" style="min-height:120px;" placeholder="Describe the task in detail — what you need, what tech stack is preferred, any relevant background..."></textarea>
-            </div>
-            <div class="form-row">
-              <label class="form-label">Skills Required</label>
-              <input type="text" class="form-input" placeholder="React, TypeScript, REST API, etc.">
-            </div>
+            <div class="form-row"><label class="form-label">Task Title</label><input type="text" class="form-input" placeholder="e.g. Build a React dashboard for fintech app"></div>
+            <div class="form-row"><label class="form-label">Description</label><textarea class="form-input form-textarea" style="min-height:120px;" placeholder="Describe the task in detail..."></textarea></div>
+            <div class="form-row"><label class="form-label">Skills Required</label><input type="text" class="form-input" placeholder="React, TypeScript, REST API, etc."></div>
           </div>
-
           <div class="form-section">
             <div class="form-section-title">💰 Budget & Timeline</div>
             <div class="task-budget-row">
-              <div class="form-row" style="margin-bottom:0">
-                <label class="form-label">Budget</label>
-                <input type="text" class="form-input" placeholder="₹50,000 or $500">
-              </div>
-              <div class="form-row" style="margin-bottom:0">
-                <label class="form-label">Budget Type</label>
-                <select class="form-input" style="appearance:none;cursor:pointer;">
-                  <option>Fixed Price</option>
-                  <option>Hourly</option>
-                  <option>Negotiable</option>
-                </select>
-              </div>
-              <div class="form-row" style="margin-bottom:0">
-                <label class="form-label">Deadline</label>
-                <input type="text" class="form-input" placeholder="2 weeks · Flexible">
-              </div>
+              <div class="form-row" style="margin-bottom:0"><label class="form-label">Budget</label><input type="text" class="form-input" placeholder="₹50,000 or $500"></div>
+              <div class="form-row" style="margin-bottom:0"><label class="form-label">Budget Type</label><select class="form-input" style="appearance:none;cursor:pointer;"><option>Fixed Price</option><option>Hourly</option><option>Negotiable</option></select></div>
+              <div class="form-row" style="margin-bottom:0"><label class="form-label">Deadline</label><input type="text" class="form-input" placeholder="2 weeks · Flexible"></div>
             </div>
           </div>
-
           <div style="display:flex;gap:10px;padding-bottom:40px;">
             <button class="btn btn-ghost" onclick="showPage('connect')">Cancel</button>
             <button class="btn btn-primary" onclick="postTask()">Post Task 📋</button>
@@ -983,7 +1002,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
               </div>
             </div>
           </div>
-          <!-- TWO TABS ONLY — no Insights -->
           <div class="tab-bar">
             <div class="tab active" onclick="swTab(this,'tp')">Posts</div>
             <div class="tab" onclick="swTab(this,'ti')">Work Gallery</div>
@@ -1016,44 +1034,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <button class="btn btn-ghost btn-sm" onclick="showPage('bizfind')">Configure Agent →</button>
           </div>
 
-          <!-- SPENDING TRACKER -->
           <div class="spend-card">
             <div class="spend-title">💳 Your Spending</div>
             <div class="spend-total">₹4,788</div>
             <div class="spend-sub">Total spent on XWITE Premium</div>
             <div class="spend-rows">
-              <div class="spend-row">
-                <div>
-                  <div class="spend-item">Premium Yearly Plan</div>
-                  <div class="spend-date">Auto-renews Mar 2026</div>
-                </div>
-                <div class="spend-amount">₹4,788/yr</div>
-              </div>
-              <div class="spend-row">
-                <div>
-                  <div class="spend-item">Last payment</div>
-                  <div class="spend-date">Mar 02, 2025</div>
-                </div>
-                <div class="spend-amount">₹4,788</div>
-              </div>
-              <div class="spend-row">
-                <div>
-                  <div class="spend-item">Agent Job Hunting</div>
-                  <div class="spend-date">Included in Premium</div>
-                </div>
-                <div class="spend-amount" style="color:var(--muted);">—</div>
-              </div>
-              <div class="spend-row" style="border-bottom:none;">
-                <div>
-                  <div class="spend-item" style="font-weight:700;color:#fff;">Total paid to date</div>
-                </div>
-                <div class="spend-amount" style="font-family:'Syne',sans-serif;font-size:14px;">₹4,788</div>
-              </div>
+              <div class="spend-row"><div><div class="spend-item">Premium Yearly Plan</div><div class="spend-date">Auto-renews Mar 2026</div></div><div class="spend-amount">₹4,788/yr</div></div>
+              <div class="spend-row"><div><div class="spend-item">Last payment</div><div class="spend-date">Mar 02, 2025</div></div><div class="spend-amount">₹4,788</div></div>
+              <div class="spend-row"><div><div class="spend-item">Agent Job Hunting</div><div class="spend-date">Included in Premium</div></div><div class="spend-amount" style="color:var(--muted);">—</div></div>
+              <div class="spend-row" style="border-bottom:none;"><div><div class="spend-item" style="font-weight:700;color:#fff;">Total paid to date</div></div><div class="spend-amount" style="font-family:'Syne',sans-serif;font-size:14px;">₹4,788</div></div>
             </div>
             <button class="btn btn-ghost btn-xs" style="margin-top:10px;width:100%;">Manage Subscription →</button>
           </div>
 
-          <!-- AGENT ACTIVITY -->
           <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">🔍 Recent Agent Activity</div>
 
           <div class="agent-match-card">
@@ -1115,6 +1108,9 @@ const tasks = [
   {id:5,poster:'Karan Mehra',l:'K',time:'3d ago',budget:'₹60,000',title:'UX Research & User Interviews',desc:'We need a UX researcher to conduct 15 user interviews for our B2B SaaS product, synthesize findings, and create a research report.',tags:['UX Research','Interviews'],deadline:'4 weeks',proposals:5,lens:'psychology',matched:false,requestSent:false},
 ];
 
+// Track connected state per profile
+const connectedProfiles = new Set();
+
 let netTab='all', taskFilter='all', premiumActive=false, agentEnabled=false;
 
 // ════════ NAV ════════
@@ -1172,40 +1168,65 @@ function filterNetwork(){
   if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.subdomain.toLowerCase().includes(q)||p.lensLabel.toLowerCase().includes(q)||p.rate.includes(q));
   renderNetwork(list);
 }
+
 function renderNetwork(list){
   list=list||bizProfiles;
   const grid=document.getElementById('netGrid');
   if(!grid)return;
-  if(!list.length){grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted);grid-column:1/-1"><div style="font-size:32px;margin-bottom:10px">🔍</div><div>No profiles found.</div></div>`;return;}
-  grid.innerHTML=list.map(p=>`
+  if(!list.length){
+    grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted);grid-column:1/-1"><div style="font-size:32px;margin-bottom:10px">🔍</div><div>No profiles found.</div></div>`;
+    return;
+  }
+  grid.innerHTML=list.map(p=>{
+    const isConn=connectedProfiles.has(p.handle);
+    return `
     <div class="pcard" onclick="openBP('${p.handle}')">
       <div class="pcard-banner">
         <div class="pcard-banner-inner"></div>
-        <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').style.opacity='0.3'">✕</div>
+        <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').remove()">✕</div>
         <div class="pcard-av-wrap"><div class="pcard-av">${p.l}</div></div>
       </div>
       <div class="pcard-body">
-        <div class="pcard-name">${p.name} <svg class="pcard-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <div class="pcard-handle">@${p.handle} · ${p.lensLabel} · ${p.subdomain}</div>
-        <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}">${p.avail?'● Available':'○ Busy'}</div>
-        <div class="pcard-stats-row">
-          <div class="pcard-stat-cell">
-            <div class="pcard-stat-val">${p.followers||'1.2k'}</div>
-            <div class="pcard-stat-lbl">Followers</div>
-          </div>
-          <div class="pcard-stat-cell">
-            <div class="pcard-stat-val">&#11088; ${p.rating}</div>
-            <div class="pcard-stat-lbl">Rating</div>
-          </div>
+        <div class="pcard-name">
+          ${p.name}
+          <svg class="pcard-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
         </div>
+        <div class="pcard-handle">${p.company||p.lensLabel+' · '+p.subdomain}<br>${p.lensEmoji} ${p.lensLabel} · ${p.subdomain}</div>
+        <div class="pcard-followers">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          ${p.followers} followers
+          <span class="pcard-followers-dot"></span>
+          ⭐ ${p.rating}
+        </div>
+        <div class="pcard-divider"></div>
         <div class="pcard-footer">
-          <button class="msg-btn" onclick="event.stopPropagation();openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Message
+          <button class="connect-btn ${isConn?'connected':''}"
+            onclick="event.stopPropagation();toggleConnect(this,'${p.handle}','${p.name}')">
+            ${isConn
+              ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Connected`
+              : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Connect`
+            }
           </button>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+function toggleConnect(btn, handle, name){
+  if(connectedProfiles.has(handle)){
+    connectedProfiles.delete(handle);
+    btn.className='connect-btn';
+    btn.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Connect`;
+  } else {
+    connectedProfiles.add(handle);
+    btn.className='connect-btn connected';
+    btn.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Connected`;
+    showToast('🤝 Connection request sent to '+name+'!');
+  }
 }
 
 // ════════ TASKS ════════
@@ -1357,9 +1378,7 @@ function showToast(msg){
   t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
 }
 
-// ════════ INIT ════════
-
-// ════ BIZ PROFILE MODAL ════
+// ════════ BIZ PROFILE MODAL ════════
 const _sk={'sara_tech':['React','Next.js','TypeScript','Tailwind','Node.js','Figma'],'arjun_ventures':['Strategy','GTM','Product','VC Fundraising','OKRs'],'neha_psych':['UX Research','Cognitive Science','User Interviews','Behavioral Analysis'],'dev_ai':['Python','TensorFlow','LLMs','PyTorch','MLOps','FastAPI'],'priya_films':['Video Editing','After Effects','Premiere Pro','Scriptwriting'],'karan_data':['Python','SQL','Tableau','Machine Learning','Data Pipelines']};
 const _rt={'sara_tech':[{t:'Fintech SaaS Dashboard',m:'React · Rs.95,000 · 3 weeks ago'},{t:'E-commerce UI Rebuild',m:'Next.js · Rs.1,20,000 · 2 months ago'}],'arjun_ventures':[{t:'Startup GTM Strategy',m:'Strategy · Rs.2,40,000 · 1 month ago'},{t:'Series A Pitch Deck',m:'Business · Rs.80,000 · 3 months ago'}],'neha_psych':[{t:'B2B SaaS User Research',m:'UX Research · Rs.60,000 · 2 weeks ago'},{t:'Onboarding Flow Analysis',m:'Cognitive UX · Rs.45,000'}],'dev_ai':[{t:'LLM Pipeline for Healthcare',m:'Python · Rs.3,50,000 · 1 month ago'},{t:'RAG Chatbot MVP',m:'LLM · Rs.2,20,000'}],'priya_films':[{t:'SaaS Product Demo Video',m:'Video · Rs.55,000 · 3 weeks ago'},{t:'Brand Film - Fintech',m:'Video · Rs.1,10,000'}],'karan_data':[{t:'Sales Analytics Dashboard',m:'Python · Rs.90,000 · 1 month ago'},{t:'Customer Churn Model',m:'ML · Rs.1,40,000'}]};
 let _bpC=null,_bpF=new Set();
@@ -1399,12 +1418,10 @@ function toggleBPFollow(){
   else{_bpF.add(_bpC.handle);fb.className='bp-btn-follow following';fb.textContent='✓ Following';showToast('✓ Now following '+_bpC.name);}
 }
 
-
 // ════ EDIT PROFILE MODAL ════
 function openEditProfile(){openModal('editProfileModal');}
 function epPreviewBanner(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){document.getElementById('epBannerPreview').style.backgroundImage='url('+e.target.result+')';};r.readAsDataURL(inp.files[0]);}
 function epPreviewAvatar(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){var c=document.getElementById('epAvCircle');c.style.backgroundImage='url('+e.target.result+')';c.style.backgroundSize='cover';c.style.backgroundPosition='center';c.textContent='';};r.readAsDataURL(inp.files[0]);}
-// ════ BIZFIND PHOTO UPLOAD ════
 function bizPrevBnr(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){document.getElementById('bizBnrPrev').style.backgroundImage='url('+e.target.result+')';};r.readAsDataURL(inp.files[0]);}
 function bizPrevAvt(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){var c=document.getElementById('bizAvtCircle');c.style.backgroundImage='url('+e.target.result+')';c.style.backgroundSize='cover';c.style.backgroundPosition='center';c.textContent='';};r.readAsDataURL(inp.files[0]);}
 
@@ -1439,7 +1456,6 @@ window.addEventListener('DOMContentLoaded',()=>{ppRender(ppPeople);renderNetwork
     </div>
   </div>
 </div>
-
 
 <!-- EDIT PROFILE MODAL -->
 <div class="modal-overlay" id="editProfileModal">
