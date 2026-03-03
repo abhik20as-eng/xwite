@@ -119,30 +119,32 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .net-search{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:7px;margin-bottom:14px;transition:border-color .2s;}
 .net-search:focus-within{border-color:#ffffff;}
 .net-search input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'DM Sans',sans-serif;}
-.net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 
 /* ── PROFILE CARD BEAUTIFUL ── */
-.pcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative;}
-.pcard:hover{border-color:rgba(255,255,255,.22);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.5);}
-.pcard-banner{height:56px;background:linear-gradient(135deg,#1a1a1a 0%,#111 100%);position:relative;}
-.pcard-banner-pattern{position:absolute;inset:0;opacity:.3;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0px,rgba(255,255,255,.04) 1px,transparent 1px,transparent 8px);}
-.pcard-av-wrap{position:absolute;bottom:-18px;left:14px;}
-.pcard-av{width:44px;height:44px;border-radius:50%;background:#1e1e1e;border:3px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#ffffff;}
-.pcard-body{padding:24px 14px 14px;}
-.pcard-id{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
-.pcard-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#ffffff;margin-bottom:2px;}
-.pcard-lens{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#cccccc;letter-spacing:.2px;margin-bottom:8px;}
-.pcard-bio{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.pcard-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.pcard-rate{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#ffffff;}
-.pcard-avail{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;display:flex;align-items:center;gap:4px;}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative;}
+.pcard:hover{border-color:rgba(255,255,255,.22);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.6);}
+.pcard-banner{height:100px;background:linear-gradient(135deg,#1c1c1c 0%,#111 100%);position:relative;}
+.pcard-banner-pattern{position:absolute;inset:0;opacity:.25;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 10px);}
+.pcard-av-wrap{position:absolute;bottom:-38px;left:50%;transform:translateX(-50%);}
+.pcard-av{width:80px;height:80px;border-radius:50%;background:#1e1e1e;border:4px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#ffffff;box-shadow:0 6px 28px rgba(0,0,0,.6);}
+.pcard-body{padding:48px 16px 16px;text-align:center;}
+.pcard-handle{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.1px;}
+.pcard-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#ffffff;margin-bottom:10px;}
+.pcard-lens{display:none;}
+.pcard-bio{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left;}
+.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.pcard-stat-cell{padding:9px 4px;text-align:center;border-right:1px solid var(--border);}
+.pcard-stat-cell:last-child{border-right:none;}
+.pcard-stat-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#ffffff;margin-bottom:1px;}
+.pcard-stat-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.pcard-avail{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;margin-bottom:12px;}
 .pcard-avail.avail-yes{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#ffffff;}
-.pcard-avail.avail-no{background:rgba(100,100,100,.07);border:1px solid rgba(100,100,100,.15);color:var(--muted);}
-.pcard-stars{display:flex;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#ffffff;margin-left:auto;}
-.pcard-footer{display:flex;gap:7px;border-top:1px solid var(--border);padding-top:11px;}
-.msg-btn{flex:1;background:#ffffff;color:#000000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;}
-.msg-btn:hover{background:#e0e0e0;transform:translateY(-1px);}
-.view-btn{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.pcard-avail.avail-no{background:rgba(100,100,100,.07);border:1px solid rgba(100,100,100,.1);color:var(--muted);}
+.pcard-footer{display:flex;gap:8px;}
+.msg-btn{flex:1;background:#ffffff;color:#000000;border:none;border-radius:9px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;}
+.msg-btn:hover{background:#e8e8e8;transform:translateY(-1px);}
+.view-btn{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
 .view-btn:hover{border-color:#ffffff;color:#ffffff;}
 
 /* ── CONNECT ── */
@@ -631,10 +633,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
       <!-- ═══════════ NETWORK ═══════════ -->
       <div class="page" id="page-network">
-        <div class="net-header">
-          <h1>🌐 Network</h1>
-          <p>Discover professionals by field. Find the right person for your task or get found.</p>
-        </div>
         <div class="net-search">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <input id="netSearch" placeholder="Search by name, skill, lens, or rate..." oninput="filterNetwork()">
@@ -1019,12 +1017,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <script>
 // ════════ DATA ════════
 const bizProfiles = [
-  {id:'#XW0018',l:'S',name:'Sara Mehta',handle:'sara_tech',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'Frontend Dev',rate:'₹3,200/hr',avail:true,bio:'Senior frontend developer. 6 years experience. React & Next.js specialist. Built 3 SaaS products from scratch.',rating:4.9},
-  {id:'#XW0031',l:'A',name:'Arjun Bose',handle:'arjun_ventures',lens:'business',lensLabel:'Business',lensEmoji:'📊',subdomain:'Strategy',rate:'₹4,000/hr',avail:false,bio:'Ex-McKinsey. Built and sold 2 startups. Currently advising 5 early-stage companies on product and GTM.',rating:4.8},
-  {id:'#XW0024',l:'N',name:'Neha Sharma',handle:'neha_psych',lens:'psychology',lensLabel:'Psychology',lensEmoji:'🧠',subdomain:'Cognitive',rate:'₹2,800/hr',avail:true,bio:'Cognitive psychologist turned UX researcher. Help products understand their users with deep behavioral analysis.',rating:5.0},
-  {id:'#XW0007',l:'D',name:'Dev Sharma',handle:'dev_ai',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'AI & ML',rate:'₹5,500/hr',avail:true,bio:'ML Engineer. 5 years in AI. Built production LLM systems for fintech and healthcare. Open to contract work.',rating:4.7},
-  {id:'#XW0055',l:'P',name:'Priya Nair',handle:'priya_films',lens:'creative',lensLabel:'Creative',lensEmoji:'🎨',subdomain:'Film & Video',rate:'₹2,200/hr',avail:true,bio:'Video producer and editor. 100+ brand films. Specialising in SaaS product demo and explainer videos.',rating:4.9},
-  {id:'#XW0062',l:'K',name:'Karan Mehra',handle:'karan_data',lens:'science',lensLabel:'Science',lensEmoji:'🔬',subdomain:'Data Science',rate:'₹3,800/hr',avail:false,bio:'Data scientist. Love turning messy data into clean insights. Ex-Google analyst. Python, SQL, ML specialist.',rating:4.6},
+  {id:'#XW0018',l:'S',name:'Sara Mehta',handle:'sara_tech',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'Frontend Dev',rate:'₹3,200/hr',avail:true,bio:'Senior frontend developer. 6 years experience. React & Next.js specialist. Built 3 SaaS products from scratch.',rating:4.9,tasksDone:8,taskSpent:'₹2,40,000'},
+  {id:'#XW0031',l:'A',name:'Arjun Bose',handle:'arjun_ventures',lens:'business',lensLabel:'Business',lensEmoji:'📊',subdomain:'Strategy',rate:'₹4,000/hr',avail:false,bio:'Ex-McKinsey. Built and sold 2 startups. Currently advising 5 early-stage companies on product and GTM.',rating:4.8,tasksDone:14,taskSpent:'₹5,60,000'},
+  {id:'#XW0024',l:'N',name:'Neha Sharma',handle:'neha_psych',lens:'psychology',lensLabel:'Psychology',lensEmoji:'🧠',subdomain:'Cognitive',rate:'₹2,800/hr',avail:true,bio:'Cognitive psychologist turned UX researcher. Help products understand their users with deep behavioral analysis.',rating:5.0,tasksDone:6,taskSpent:'₹84,000'},
+  {id:'#XW0007',l:'D',name:'Dev Sharma',handle:'dev_ai',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'AI & ML',rate:'₹5,500/hr',avail:true,bio:'ML Engineer. 5 years in AI. Built production LLM systems for fintech and healthcare. Open to contract work.',rating:4.7,tasksDone:20,taskSpent:'₹9,80,000'},
+  {id:'#XW0055',l:'P',name:'Priya Nair',handle:'priya_films',lens:'creative',lensLabel:'Creative',lensEmoji:'🎨',subdomain:'Film & Video',rate:'₹2,200/hr',avail:true,bio:'Video producer and editor. 100+ brand films. Specialising in SaaS product demo and explainer videos.',rating:4.9,tasksDone:11,taskSpent:'₹1,65,000'},
+  {id:'#XW0062',l:'K',name:'Karan Mehra',handle:'karan_data',lens:'science',lensLabel:'Science',lensEmoji:'🔬',subdomain:'Data Science',rate:'₹3,800/hr',avail:false,bio:'Data scientist. Love turning messy data into clean insights. Ex-Google analyst. Python, SQL, ML specialist.',rating:4.6,tasksDone:9,taskSpent:'₹3,24,000'},
 ];
 
 const tasks = [
@@ -1104,21 +1102,30 @@ function renderNetwork(list){
         <div class="pcard-av-wrap"><div class="pcard-av">${p.l}</div></div>
       </div>
       <div class="pcard-body">
-        <div class="pcard-id">${p.id}</div>
         <div class="pcard-name">${p.name}</div>
-        <div class="pcard-lens">${p.lensEmoji} ${p.lensLabel} · ${p.subdomain}</div>
+        <div class="pcard-handle">@${p.handle} · ${p.lensLabel} · ${p.subdomain}</div>
         <div class="pcard-bio">${p.bio}</div>
-        <div class="pcard-meta">
-          <div class="pcard-rate">${p.rate}</div>
-          <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}">${p.avail?'● Available':'○ Busy'}</div>
-          <div class="pcard-stars">⭐ ${p.rating}</div>
+        <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}" style="margin:0 auto 12px;">${p.avail?'● Available Now':'○ Currently Busy'}</div>
+        <div class="pcard-stats-row">
+          <div class="pcard-stat-cell">
+            <div class="pcard-stat-val">${p.rate}</div>
+            <div class="pcard-stat-lbl">Rate</div>
+          </div>
+          <div class="pcard-stat-cell">
+            <div class="pcard-stat-val">⭐ ${p.rating}</div>
+            <div class="pcard-stat-lbl">Rating</div>
+          </div>
+          <div class="pcard-stat-cell">
+            <div class="pcard-stat-val" style="font-size:11px;">${p.taskSpent}</div>
+            <div class="pcard-stat-lbl">Tasks Spent</div>
+          </div>
         </div>
         <div class="pcard-footer">
           <button class="msg-btn" onclick="openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Message
           </button>
-          <button class="view-btn" onclick="openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">View →</button>
+          <button class="view-btn" onclick="openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">Profile →</button>
         </div>
       </div>
     </div>`).join('');
