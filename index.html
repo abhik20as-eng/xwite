@@ -142,10 +142,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* Handle / role line — muted, 2 lines max */
 .pcard-handle{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 /* Stats row — rate · rating · spent */
-.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
-.pcard-stat-cell{padding:7px 3px;text-align:center;border-right:1px solid var(--border);}
+.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+.pcard-stat-cell{padding:9px 6px;text-align:center;border-right:1px solid var(--border);}
 .pcard-stat-cell:last-child{border-right:none;}
-.pcard-stat-val{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;color:#ffffff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcard-stat-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#ffffff;margin-bottom:2px;}
 .pcard-stat-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);}
 /* Availability pill */
 .pcard-avail{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;margin:0 auto 10px;}
@@ -748,10 +748,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <!-- ═══════════ BUSINESS: FIND WORK ═══════════ -->
       <div class="page" id="page-bizfind">
         <div style="max-width:680px;">
-          <div class="biz-hero">
-            <div class="biz-hero-icon">💼</div>
-            <div class="biz-hero-title">Your Business Profile</div>
-            <div class="biz-hero-sub">Set your lens, showcase your work, and let your agent find jobs automatically.</div>
+          <!-- Cover + Avatar Upload -->
+          <div style="position:relative;margin-bottom:50px;">
+            <div onclick="document.getElementById('bizBnr').click()" style="height:120px;border-radius:14px;background:linear-gradient(135deg,#1a1a1a,#0d0d0d);position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--border);">
+              <div id="bizBnrPrev" style="position:absolute;inset:0;background-size:cover;background-position:center;"></div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(0,0,0,.25);"><svg width=17 height=17 viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:#fff;font-weight:600;">Change Cover Photo</span></div>
+              <input type="file" id="bizBnr" accept="image/*" style="display:none" onchange="bizPrevBnr(this)">
+            </div>
+            <div style="position:absolute;bottom:-36px;left:16px;cursor:pointer;" onclick="document.getElementById('bizAvt').click()">
+              <div id="bizAvtCircle" style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#2a2a2a,#181818);border:3.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:#fff;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.6);">R</div>
+              <div style="position:absolute;bottom:2px;right:2px;width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);"><svg width=11 height=11 viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+              <input type="file" id="bizAvt" accept="image/*" style="display:none" onchange="bizPrevAvt(this)">
+            </div>
           </div>
 
           <div class="form-section">
@@ -771,8 +779,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="form-section">
             <div class="form-section-title">👤 Profile Details</div>
             <div class="form-row">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" value="Ravi Kumar">
+            </div>
+            <div class="form-row">
               <label class="form-label">Professional Title</label>
               <input type="text" class="form-input" value="Frontend Developer · React Specialist">
+            </div>
+            <div class="form-row">
+              <label class="form-label">Company / Organisation <span class="optional-badge">Optional</span></label>
+              <input type="text" class="form-input" placeholder="e.g. Freelance, Google, Startup name...">
+            </div>
+            <div class="form-row">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" placeholder="City, Country" value="Mumbai, India">
             </div>
             <div class="form-row">
               <label class="form-label">Bio</label>
@@ -952,7 +972,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                     <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#888;">● Available</span>
                   </div>
                 </div>
-                <button class="btn btn-ghost btn-sm" onclick="showPage('bizfind')">Edit Profile</button>
+                <button class="btn btn-ghost btn-sm" onclick="openEditProfile()">Edit Profile</button>
               </div>
               <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="showPage('agent')">🤖 View Agent Activity</button>
               <div class="profile-stats">
@@ -1079,12 +1099,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <script>
 // ════════ DATA ════════
 const bizProfiles = [
-  {id:'#XW0018',l:'S',name:'Sara Mehta',handle:'sara_tech',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'Frontend Dev',rate:'₹3,200/hr',avail:true,bio:'Senior frontend developer. 6 years experience. React & Next.js specialist. Built 3 SaaS products from scratch.',rating:4.9,tasksDone:8,taskSpent:'₹2,40,000'},
-  {id:'#XW0031',l:'A',name:'Arjun Bose',handle:'arjun_ventures',lens:'business',lensLabel:'Business',lensEmoji:'📊',subdomain:'Strategy',rate:'₹4,000/hr',avail:false,bio:'Ex-McKinsey. Built and sold 2 startups. Currently advising 5 early-stage companies on product and GTM.',rating:4.8,tasksDone:14,taskSpent:'₹5,60,000'},
-  {id:'#XW0024',l:'N',name:'Neha Sharma',handle:'neha_psych',lens:'psychology',lensLabel:'Psychology',lensEmoji:'🧠',subdomain:'Cognitive',rate:'₹2,800/hr',avail:true,bio:'Cognitive psychologist turned UX researcher. Help products understand their users with deep behavioral analysis.',rating:5.0,tasksDone:6,taskSpent:'₹84,000'},
-  {id:'#XW0007',l:'D',name:'Dev Sharma',handle:'dev_ai',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'AI & ML',rate:'₹5,500/hr',avail:true,bio:'ML Engineer. 5 years in AI. Built production LLM systems for fintech and healthcare. Open to contract work.',rating:4.7,tasksDone:20,taskSpent:'₹9,80,000'},
-  {id:'#XW0055',l:'P',name:'Priya Nair',handle:'priya_films',lens:'creative',lensLabel:'Creative',lensEmoji:'🎨',subdomain:'Film & Video',rate:'₹2,200/hr',avail:true,bio:'Video producer and editor. 100+ brand films. Specialising in SaaS product demo and explainer videos.',rating:4.9,tasksDone:11,taskSpent:'₹1,65,000'},
-  {id:'#XW0062',l:'K',name:'Karan Mehra',handle:'karan_data',lens:'science',lensLabel:'Science',lensEmoji:'🔬',subdomain:'Data Science',rate:'₹3,800/hr',avail:false,bio:'Data scientist. Love turning messy data into clean insights. Ex-Google analyst. Python, SQL, ML specialist.',rating:4.6,tasksDone:9,taskSpent:'₹3,24,000'},
+  {id:'#XW0018',l:'S',name:'Sara Mehta',handle:'sara_tech',followers:'7.2k',company:'Freelance - Ex-Razorpay',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'Frontend Dev',rate:'₹3,200/hr',avail:true,bio:'Senior frontend developer. 6 years experience. React & Next.js specialist. Built 3 SaaS products from scratch.',rating:4.9,tasksDone:8,taskSpent:'₹2,40,000'},
+  {id:'#XW0031',l:'A',name:'Arjun Bose',handle:'arjun_ventures',followers:'2.4k',company:'Bose Ventures - Ex-McKinsey',lens:'business',lensLabel:'Business',lensEmoji:'📊',subdomain:'Strategy',rate:'₹4,000/hr',avail:false,bio:'Ex-McKinsey. Built and sold 2 startups. Currently advising 5 early-stage companies on product and GTM.',rating:4.8,tasksDone:14,taskSpent:'₹5,60,000'},
+  {id:'#XW0024',l:'N',name:'Neha Sharma',handle:'neha_psych',followers:'3.1k',company:'Freelance - Ex-NIMHANS',lens:'psychology',lensLabel:'Psychology',lensEmoji:'🧠',subdomain:'Cognitive',rate:'₹2,800/hr',avail:true,bio:'Cognitive psychologist turned UX researcher. Help products understand their users with deep behavioral analysis.',rating:5.0,tasksDone:6,taskSpent:'₹84,000'},
+  {id:'#XW0007',l:'D',name:'Dev Sharma',handle:'dev_ai',followers:'6.1k',company:'Stealth AI - Ex-Google',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'AI & ML',rate:'₹5,500/hr',avail:true,bio:'ML Engineer. 5 years in AI. Built production LLM systems for fintech and healthcare. Open to contract work.',rating:4.7,tasksDone:20,taskSpent:'₹9,80,000'},
+  {id:'#XW0055',l:'P',name:'Priya Nair',handle:'priya_films',followers:'5.8k',company:'PriyaFilms Studio',lens:'creative',lensLabel:'Creative',lensEmoji:'🎨',subdomain:'Film & Video',rate:'₹2,200/hr',avail:true,bio:'Video producer and editor. 100+ brand films. Specialising in SaaS product demo and explainer videos.',rating:4.9,tasksDone:11,taskSpent:'₹1,65,000'},
+  {id:'#XW0062',l:'K',name:'Karan Mehra',handle:'karan_data',followers:'4.3k',company:'DataKraft - Ex-Google',lens:'science',lensLabel:'Science',lensEmoji:'🔬',subdomain:'Data Science',rate:'₹3,800/hr',avail:false,bio:'Data scientist. Love turning messy data into clean insights. Ex-Google analyst. Python, SQL, ML specialist.',rating:4.6,tasksDone:9,taskSpent:'₹3,24,000'},
 ];
 
 const tasks = [
@@ -1170,16 +1190,12 @@ function renderNetwork(list){
         <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}">${p.avail?'● Available':'○ Busy'}</div>
         <div class="pcard-stats-row">
           <div class="pcard-stat-cell">
-            <div class="pcard-stat-val">${p.rate}</div>
-            <div class="pcard-stat-lbl">Rate</div>
+            <div class="pcard-stat-val">${p.followers||'1.2k'}</div>
+            <div class="pcard-stat-lbl">Followers</div>
           </div>
           <div class="pcard-stat-cell">
-            <div class="pcard-stat-val">⭐ ${p.rating}</div>
+            <div class="pcard-stat-val">&#11088; ${p.rating}</div>
             <div class="pcard-stat-lbl">Rating</div>
-          </div>
-          <div class="pcard-stat-cell">
-            <div class="pcard-stat-val">${p.taskSpent}</div>
-            <div class="pcard-stat-lbl">Spent</div>
           </div>
         </div>
         <div class="pcard-footer">
@@ -1351,13 +1367,15 @@ function openBP(h){
   const p=bizProfiles.find(x=>x.handle===h);if(!p)return;_bpC=p;
   document.getElementById('bpAv').textContent=p.l;
   document.getElementById('bpName').textContent=p.name;
+  const _bpCompEl=document.getElementById('bpCompany');if(_bpCompEl){_bpCompEl.innerHTML=p.company?'<svg width=11 height=11 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> '+p.company:'';_bpCompEl.style.display=p.company?'flex':'none';}
   document.getElementById('bpHandle').textContent='@'+p.handle+' · '+p.id;
   document.getElementById('bpBadges').innerHTML='<span class="bp-lens-badge">'+p.lensEmoji+' '+p.lensLabel+' · '+p.subdomain+'</span><span class="'+(p.avail?'bp-avail-yes':'bp-avail-no')+'">'+(p.avail?'● Available':'○ Busy')+'</span>';
   document.getElementById('bpBio').textContent=p.bio;
   document.getElementById('bpStT').textContent=p.tasksDone;
-  document.getElementById('bpStS').textContent=p.taskSpent;
+  document.getElementById('bpStS').textContent=p.followers||'—';
   document.getElementById('bpStR').textContent='⭐ '+p.rating;
   document.getElementById('bpRate').textContent=p.rate;
+  if(document.getElementById('bpSpentLine'))document.getElementById('bpSpentLine').textContent=p.taskSpent||'—';
   document.getElementById('bpAvailTag').innerHTML=p.avail?'<span style="font-size:12px;font-weight:700;color:#fff;padding:5px 13px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)">Available ✓</span>':'<span style="font-size:12px;color:var(--muted);padding:5px 13px;border-radius:99px;background:rgba(60,60,60,.1);border:1px solid rgba(60,60,60,.2)">Busy</span>';
   document.getElementById('bpSkills').innerHTML=(_sk[h]||[]).map(s=>'<span class="bp-skill">'+s+'</span>').join('');
   document.getElementById('bpRBig').textContent=p.rating.toFixed(1);
@@ -1381,6 +1399,15 @@ function toggleBPFollow(){
   else{_bpF.add(_bpC.handle);fb.className='bp-btn-follow following';fb.textContent='✓ Following';showToast('✓ Now following '+_bpC.name);}
 }
 
+
+// ════ EDIT PROFILE MODAL ════
+function openEditProfile(){openModal('editProfileModal');}
+function epPreviewBanner(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){document.getElementById('epBannerPreview').style.backgroundImage='url('+e.target.result+')';};r.readAsDataURL(inp.files[0]);}
+function epPreviewAvatar(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){var c=document.getElementById('epAvCircle');c.style.backgroundImage='url('+e.target.result+')';c.style.backgroundSize='cover';c.style.backgroundPosition='center';c.textContent='';};r.readAsDataURL(inp.files[0]);}
+// ════ BIZFIND PHOTO UPLOAD ════
+function bizPrevBnr(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){document.getElementById('bizBnrPrev').style.backgroundImage='url('+e.target.result+')';};r.readAsDataURL(inp.files[0]);}
+function bizPrevAvt(inp){if(!inp.files||!inp.files[0])return;var r=new FileReader();r.onload=function(e){var c=document.getElementById('bizAvtCircle');c.style.backgroundImage='url('+e.target.result+')';c.style.backgroundSize='cover';c.style.backgroundPosition='center';c.textContent='';};r.readAsDataURL(inp.files[0]);}
+
 window.addEventListener('DOMContentLoaded',()=>{ppRender(ppPeople);renderNetwork();renderTasks();});
 </script>
 
@@ -1402,13 +1429,54 @@ window.addEventListener('DOMContentLoaded',()=>{ppRender(ppPeople);renderNetwork
       </div>
       <div class="bp-stats">
         <div class="bp-stat"><div class="bp-stat-val" id="bpStT">-</div><div class="bp-stat-lbl">Tasks Done</div></div>
-        <div class="bp-stat"><div class="bp-stat-val" id="bpStS">-</div><div class="bp-stat-lbl">Total Spent</div></div>
+        <div class="bp-stat"><div class="bp-stat-val" id="bpStS">-</div><div class="bp-stat-lbl">Followers</div></div>
         <div class="bp-stat"><div class="bp-stat-val" id="bpStR">-</div><div class="bp-stat-lbl">Rating</div></div>
       </div>
-      <div class="bp-section"><div class="bp-section-title">Rate</div><div class="bp-rate-card"><div><div class="bp-rate-val" id="bpRate"></div><div class="bp-rate-lbl">Hourly</div></div><div id="bpAvailTag"></div></div></div>
+      <div class="bp-section"><div class="bp-section-title">💰 Rate</div><div class="bp-rate-card"><div><div class="bp-rate-val" id="bpRate"></div><div class="bp-rate-lbl">Hourly Rate</div></div><div id="bpAvailTag"></div></div><div style="margin-top:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;"><div style="font-size:12px;color:var(--muted);">Total Spent on Tasks</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:800;color:#fff" id="bpSpentLine">-</div></div></div>
       <div class="bp-section"><div class="bp-section-title">Skills</div><div class="bp-skills" id="bpSkills"></div></div>
       <div class="bp-section"><div class="bp-section-title">Reviews</div><div class="bp-review-box"><div class="bp-rating-big" id="bpRBig"></div><div><div class="bp-stars" id="bpStars"></div><div style="font-size:11px;color:var(--muted);margin-top:4px" id="bpRevC"></div></div></div></div>
       <div class="bp-section" style="padding-bottom:30px;"><div class="bp-section-title">Recent Tasks</div><div id="bpTList"></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editProfileModal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header">
+      <div style="width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;">✏️</div>
+      <div class="modal-title">Edit Profile</div>
+      <div class="modal-close" onclick="closeModal('editProfileModal')">✕</div>
+    </div>
+    <div class="modal-body" style="padding:0;">
+      <div style="position:relative;height:110px;background:linear-gradient(135deg,#1a1a1a,#111);cursor:pointer;overflow:hidden;" onclick="document.getElementById('epBannerInp').click()">
+        <div id="epBannerPreview" style="position:absolute;inset:0;background-size:cover;background-position:center;"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(0,0,0,.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span style="font-size:11px;color:#fff;font-weight:600;">Tap to change cover photo</span>
+        </div>
+        <input type="file" id="epBannerInp" accept="image/*" style="display:none" onchange="epPreviewBanner(this)">
+      </div>
+      <div style="padding:0 16px;position:relative;margin-top:-30px;margin-bottom:14px;display:flex;align-items:flex-end;justify-content:space-between;">
+        <div style="position:relative;cursor:pointer;" onclick="document.getElementById('epAvatarInp').click()">
+          <div id="epAvCircle" style="width:64px;height:64px;border-radius:50%;background:#1e1e1e;border:3px solid var(--bg);display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-size:22px;font-weight:800;color:#fff;overflow:hidden;">R</div>
+          <div style="position:absolute;bottom:0;right:0;width:20px;height:20px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <input type="file" id="epAvatarInp" accept="image/*" style="display:none" onchange="epPreviewAvatar(this)">
+        </div>
+        <span style="font-size:10px;color:var(--muted);">Tap photo to change</span>
+      </div>
+      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;">
+        <div><label class="form-label">Display Name</label><input class="form-input" type="text" value="Ravi Kumar"></div>
+        <div><label class="form-label">Bio</label><textarea class="form-input form-textarea" style="min-height:68px;">Frontend developer. React specialist. Curious about systems and behavior. 🧠</textarea></div>
+        <div><label class="form-label">Location</label><input class="form-input" type="text" value="Mumbai, India"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('editProfileModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="closeModal('editProfileModal');showToast('✅ Profile updated!')">Save Changes</button>
     </div>
   </div>
 </div>
