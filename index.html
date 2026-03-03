@@ -119,33 +119,42 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .net-search{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:7px;margin-bottom:14px;transition:border-color .2s;}
 .net-search:focus-within{border-color:#ffffff;}
 .net-search input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'DM Sans',sans-serif;}
-.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-/* ── PROFILE CARD BEAUTIFUL ── */
-.pcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative;}
-.pcard:hover{border-color:rgba(255,255,255,.22);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.6);}
-.pcard-banner{height:100px;background:linear-gradient(135deg,#1c1c1c 0%,#111 100%);position:relative;}
-.pcard-banner-pattern{position:absolute;inset:0;opacity:.25;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 10px);}
-.pcard-av-wrap{position:absolute;bottom:-38px;left:50%;transform:translateX(-50%);}
-.pcard-av{width:80px;height:80px;border-radius:50%;background:#1e1e1e;border:4px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#ffffff;box-shadow:0 6px 28px rgba(0,0,0,.6);}
-.pcard-body{padding:48px 16px 16px;text-align:center;}
-.pcard-handle{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.1px;}
-.pcard-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#ffffff;margin-bottom:10px;}
-.pcard-lens{display:none;}
-.pcard-bio{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left;}
-.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.pcard-stat-cell{padding:9px 4px;text-align:center;border-right:1px solid var(--border);}
+/* ── PROFILE CARD — LinkedIn card style, XWITE dark palette ── */
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s;display:flex;flex-direction:column;}
+.pcard:hover{border-color:rgba(255,255,255,.18);box-shadow:0 6px 28px rgba(0,0,0,.55);}
+/* Banner — solid dark bg, avatar overlaps from centre bottom */
+.pcard-banner{height:80px;position:relative;overflow:visible;flex-shrink:0;background:linear-gradient(160deg,#1a1a1a 0%,#0f0f0f 100%);}
+.pcard-banner-inner{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 14px);}
+/* X dismiss button top-right like LinkedIn */
+.pcard-dismiss{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(20,20,20,.8);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:12px;transition:all .2s;z-index:3;line-height:1;}
+.pcard-dismiss:hover{background:rgba(255,255,255,.12);color:#fff;}
+/* Large avatar centred, half-overlapping banner */
+.pcard-av-wrap{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);z-index:2;}
+.pcard-av{width:82px;height:82px;border-radius:50%;background:linear-gradient(135deg,#2c2c2c,#1a1a1a);border:3px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#ffffff;box-shadow:0 4px 20px rgba(0,0,0,.7);}
+/* Card body — centred text, like LinkedIn */
+.pcard-body{padding:48px 14px 14px;text-align:center;display:flex;flex-direction:column;flex:1;}
+/* Name bold */
+.pcard-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#ffffff;line-height:1.3;margin-bottom:3px;}
+/* Verified badge inline */
+.pcard-verified{display:inline;width:13px;height:13px;vertical-align:middle;margin-left:3px;opacity:.7;}
+/* Handle / role line — muted, 2 lines max */
+.pcard-handle{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+/* Stats row — rate · rating · spent */
+.pcard-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+.pcard-stat-cell{padding:7px 3px;text-align:center;border-right:1px solid var(--border);}
 .pcard-stat-cell:last-child{border-right:none;}
-.pcard-stat-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#ffffff;margin-bottom:1px;}
-.pcard-stat-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
-.pcard-avail{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;margin-bottom:12px;}
-.pcard-avail.avail-yes{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#ffffff;}
-.pcard-avail.avail-no{background:rgba(100,100,100,.07);border:1px solid rgba(100,100,100,.1);color:var(--muted);}
-.pcard-footer{display:flex;gap:8px;}
-.msg-btn{flex:1;background:#ffffff;color:#000000;border:none;border-radius:9px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;}
-.msg-btn:hover{background:#e8e8e8;transform:translateY(-1px);}
-.view-btn{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
-.view-btn:hover{border-color:#ffffff;color:#ffffff;}
+.pcard-stat-val{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;color:#ffffff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcard-stat-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);}
+/* Availability pill */
+.pcard-avail{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;margin:0 auto 10px;}
+.pcard-avail.avail-yes{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);color:#bbbbbb;}
+.pcard-avail.avail-no{background:rgba(60,60,60,.1);border:1px solid rgba(60,60,60,.18);color:var(--muted);}
+/* Footer: full-width pill button — like LinkedIn "Connect" */
+.pcard-footer{margin-top:auto;}
+.msg-btn{width:100%;background:transparent;color:#ffffff;border:1.5px solid rgba(255,255,255,.32);border-radius:99px;padding:8px 0;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;letter-spacing:.1px;}
+.msg-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.7);}
 
 /* ── CONNECT ── */
 .conn-header{margin-bottom:16px;}
@@ -346,6 +355,59 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @media(max-width:1024px){
   .feed-grid{grid-template-columns:1fr;}
   .right-panel{display:none;}
+}
+
+/* ── BIZ PROFILE MODAL ── */
+.bpmodal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:20000;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s;}
+.bpmodal-overlay.open{opacity:1;pointer-events:all;}
+.bpmodal{background:var(--bg);width:100%;max-width:480px;max-height:92vh;border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;transform:translateY(80px);transition:transform .32s cubic-bezier(.22,1,.36,1);}
+.bpmodal-overlay.open .bpmodal{transform:translateY(0);}
+.bpmodal-handle{width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin:10px auto 0;flex-shrink:0;}
+.bpmodal-scroll{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+.bpmodal-scroll::-webkit-scrollbar{display:none;}
+.bp-banner{height:140px;position:relative;overflow:hidden;flex-shrink:0;background:linear-gradient(160deg,#1e1e1e 0,#0d0d0d 100%);}
+.bp-banner-tex{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.028) 0,rgba(255,255,255,.028) 1px,transparent 1px,transparent 14px);}
+.bp-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:13px;z-index:5;transition:all .2s;}
+.bp-close:hover{background:rgba(255,255,255,.15);color:#fff;}
+.bp-av-wrap{position:absolute;left:16px;bottom:-42px;z-index:4;}
+.bp-av{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#282828,#181818);border:3.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:#fff;box-shadow:0 4px 24px rgba(0,0,0,.8);}
+.bp-info{padding:52px 16px 14px;}
+.bp-name-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
+.bp-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1.2;}
+.bp-verified{width:15px;height:15px;opacity:.65;flex-shrink:0;}
+.bp-handle{font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:.2px;}
+.bp-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.bp-lens-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 11px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#ccc;}
+.bp-avail-yes{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);color:#c8c8c8;font-size:11px;font-weight:600;padding:3px 11px;border-radius:99px;}
+.bp-avail-no{background:rgba(60,60,60,.1);border:1px solid rgba(60,60,60,.2);color:var(--muted);font-size:11px;font-weight:600;padding:3px 11px;border-radius:99px;}
+.bp-bio{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px;}
+.bp-actions{display:flex;gap:9px;}
+.bp-btn-msg{flex:1;background:#fff;color:#000;border:none;border-radius:99px;padding:11px 0;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .18s;}
+.bp-btn-msg:hover{background:#e0e0e0;}
+.bp-btn-follow{flex:1;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.32);border-radius:99px;padding:11px 0;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .18s;}
+.bp-btn-follow:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+.bp-btn-follow.following{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:var(--text2);}
+.bp-stats{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:16px 0 0;}
+.bp-stat{flex:1;text-align:center;padding:12px 6px;}
+.bp-stat+.bp-stat{border-left:1px solid var(--border);}
+.bp-stat-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#fff;}
+.bp-stat-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+.bp-section{padding:14px 16px 0;}
+.bp-section-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:10px;}
+.bp-rate-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
+.bp-rate-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;}
+.bp-rate-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+.bp-skills{display:flex;gap:6px;flex-wrap:wrap;}
+.bp-skill{font-size:12px;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);color:var(--text2);}
+.bp-review-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;}
+.bp-rating-big{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#fff;line-height:1;}
+.bp-stars{display:flex;gap:2px;font-size:16px;}
+.bp-task-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px;margin-bottom:8px;}
+.bp-task-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
+.bp-task-meta{font-size:11px;color:var(--muted);}
+@media(min-width:480px){
+  .bpmodal{border-radius:22px;max-height:88vh;margin-bottom:20px;}
+  .bpmodal-overlay{align-items:center;}
 }
 </style>
 </head>
@@ -1096,16 +1158,16 @@ function renderNetwork(list){
   if(!grid)return;
   if(!list.length){grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted);grid-column:1/-1"><div style="font-size:32px;margin-bottom:10px">🔍</div><div>No profiles found.</div></div>`;return;}
   grid.innerHTML=list.map(p=>`
-    <div class="pcard">
+    <div class="pcard" onclick="openBP('${p.handle}')">
       <div class="pcard-banner">
-        <div class="pcard-banner-pattern"></div>
+        <div class="pcard-banner-inner"></div>
+        <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').style.opacity='0.3'">✕</div>
         <div class="pcard-av-wrap"><div class="pcard-av">${p.l}</div></div>
       </div>
       <div class="pcard-body">
-        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-name">${p.name} <svg class="pcard-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <div class="pcard-handle">@${p.handle} · ${p.lensLabel} · ${p.subdomain}</div>
-        <div class="pcard-bio">${p.bio}</div>
-        <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}" style="margin:0 auto 12px;">${p.avail?'● Available Now':'○ Currently Busy'}</div>
+        <div class="pcard-avail ${p.avail?'avail-yes':'avail-no'}">${p.avail?'● Available':'○ Busy'}</div>
         <div class="pcard-stats-row">
           <div class="pcard-stat-cell">
             <div class="pcard-stat-val">${p.rate}</div>
@@ -1116,16 +1178,15 @@ function renderNetwork(list){
             <div class="pcard-stat-lbl">Rating</div>
           </div>
           <div class="pcard-stat-cell">
-            <div class="pcard-stat-val" style="font-size:11px;">${p.taskSpent}</div>
-            <div class="pcard-stat-lbl">Tasks Spent</div>
+            <div class="pcard-stat-val">${p.taskSpent}</div>
+            <div class="pcard-stat-lbl">Spent</div>
           </div>
         </div>
         <div class="pcard-footer">
-          <button class="msg-btn" onclick="openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <button class="msg-btn" onclick="event.stopPropagation();openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Message
           </button>
-          <button class="view-btn" onclick="openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">Profile →</button>
         </div>
       </div>
     </div>`).join('');
@@ -1281,7 +1342,76 @@ function showToast(msg){
 }
 
 // ════════ INIT ════════
+
+// ════ BIZ PROFILE MODAL ════
+const _sk={'sara_tech':['React','Next.js','TypeScript','Tailwind','Node.js','Figma'],'arjun_ventures':['Strategy','GTM','Product','VC Fundraising','OKRs'],'neha_psych':['UX Research','Cognitive Science','User Interviews','Behavioral Analysis'],'dev_ai':['Python','TensorFlow','LLMs','PyTorch','MLOps','FastAPI'],'priya_films':['Video Editing','After Effects','Premiere Pro','Scriptwriting'],'karan_data':['Python','SQL','Tableau','Machine Learning','Data Pipelines']};
+const _rt={'sara_tech':[{t:'Fintech SaaS Dashboard',m:'React · Rs.95,000 · 3 weeks ago'},{t:'E-commerce UI Rebuild',m:'Next.js · Rs.1,20,000 · 2 months ago'}],'arjun_ventures':[{t:'Startup GTM Strategy',m:'Strategy · Rs.2,40,000 · 1 month ago'},{t:'Series A Pitch Deck',m:'Business · Rs.80,000 · 3 months ago'}],'neha_psych':[{t:'B2B SaaS User Research',m:'UX Research · Rs.60,000 · 2 weeks ago'},{t:'Onboarding Flow Analysis',m:'Cognitive UX · Rs.45,000'}],'dev_ai':[{t:'LLM Pipeline for Healthcare',m:'Python · Rs.3,50,000 · 1 month ago'},{t:'RAG Chatbot MVP',m:'LLM · Rs.2,20,000'}],'priya_films':[{t:'SaaS Product Demo Video',m:'Video · Rs.55,000 · 3 weeks ago'},{t:'Brand Film - Fintech',m:'Video · Rs.1,10,000'}],'karan_data':[{t:'Sales Analytics Dashboard',m:'Python · Rs.90,000 · 1 month ago'},{t:'Customer Churn Model',m:'ML · Rs.1,40,000'}]};
+let _bpC=null,_bpF=new Set();
+function openBP(h){
+  const p=bizProfiles.find(x=>x.handle===h);if(!p)return;_bpC=p;
+  document.getElementById('bpAv').textContent=p.l;
+  document.getElementById('bpName').textContent=p.name;
+  document.getElementById('bpHandle').textContent='@'+p.handle+' · '+p.id;
+  document.getElementById('bpBadges').innerHTML='<span class="bp-lens-badge">'+p.lensEmoji+' '+p.lensLabel+' · '+p.subdomain+'</span><span class="'+(p.avail?'bp-avail-yes':'bp-avail-no')+'">'+(p.avail?'● Available':'○ Busy')+'</span>';
+  document.getElementById('bpBio').textContent=p.bio;
+  document.getElementById('bpStT').textContent=p.tasksDone;
+  document.getElementById('bpStS').textContent=p.taskSpent;
+  document.getElementById('bpStR').textContent='⭐ '+p.rating;
+  document.getElementById('bpRate').textContent=p.rate;
+  document.getElementById('bpAvailTag').innerHTML=p.avail?'<span style="font-size:12px;font-weight:700;color:#fff;padding:5px 13px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)">Available ✓</span>':'<span style="font-size:12px;color:var(--muted);padding:5px 13px;border-radius:99px;background:rgba(60,60,60,.1);border:1px solid rgba(60,60,60,.2)">Busy</span>';
+  document.getElementById('bpSkills').innerHTML=(_sk[h]||[]).map(s=>'<span class="bp-skill">'+s+'</span>').join('');
+  document.getElementById('bpRBig').textContent=p.rating.toFixed(1);
+  const f=Math.floor(p.rating);
+  document.getElementById('bpStars').innerHTML=[0,1,2,3,4].map(i=>'<span style="opacity:'+(i<f?1:i===f&&p.rating-f>=.5?.45:.18)+'">&#9733;</span>').join('');
+  document.getElementById('bpRevC').textContent=(p.tasksDone*3)+' reviews';
+  document.getElementById('bpTList').innerHTML=(_rt[h]||[]).map(t=>'<div class="bp-task-item"><div class="bp-task-title">'+t.t+'</div><div class="bp-task-meta">'+t.m+'</div></div>').join('');
+  document.getElementById('bpMsgBtn').onclick=function(){closeBP();openChatWith(p.name,p.l,'1e1e1e',p.id);};
+  const fb=document.getElementById('bpFollowBtn');
+  if(_bpF.has(h)){fb.className='bp-btn-follow following';fb.textContent='✓ Following';}
+  else{fb.className='bp-btn-follow';fb.textContent='+ Follow';}
+  document.querySelector('.bpmodal-scroll').scrollTop=0;
+  document.getElementById('bpModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBP(){document.getElementById('bpModal').classList.remove('open');document.body.style.overflow='';}
+function toggleBPFollow(){
+  if(!_bpC)return;
+  const fb=document.getElementById('bpFollowBtn');
+  if(_bpF.has(_bpC.handle)){_bpF.delete(_bpC.handle);fb.className='bp-btn-follow';fb.textContent='+ Follow';}
+  else{_bpF.add(_bpC.handle);fb.className='bp-btn-follow following';fb.textContent='✓ Following';showToast('✓ Now following '+_bpC.name);}
+}
+
 window.addEventListener('DOMContentLoaded',()=>{ppRender(ppPeople);renderNetwork();renderTasks();});
 </script>
+
+<!-- BIZ PROFILE MODAL -->
+<div class="bpmodal-overlay" id="bpModal" onclick="if(event.target===this)closeBP()">
+  <div class="bpmodal">
+    <div class="bpmodal-handle"></div>
+    <div class="bpmodal-scroll">
+      <div class="bp-banner"><div class="bp-banner-tex"></div><div class="bp-close" onclick="closeBP()">&#x2715;</div><div class="bp-av-wrap"><div class="bp-av" id="bpAv"></div></div></div>
+      <div class="bp-info">
+        <div class="bp-name-row"><div class="bp-name" id="bpName"></div><svg class="bp-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="bp-handle" id="bpHandle"></div>
+        <div class="bp-badges" id="bpBadges"></div>
+        <div class="bp-bio" id="bpBio"></div>
+        <div class="bp-actions">
+          <button class="bp-btn-msg" id="bpMsgBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Message</button>
+          <button class="bp-btn-follow" id="bpFollowBtn" onclick="toggleBPFollow()">+ Follow</button>
+        </div>
+      </div>
+      <div class="bp-stats">
+        <div class="bp-stat"><div class="bp-stat-val" id="bpStT">-</div><div class="bp-stat-lbl">Tasks Done</div></div>
+        <div class="bp-stat"><div class="bp-stat-val" id="bpStS">-</div><div class="bp-stat-lbl">Total Spent</div></div>
+        <div class="bp-stat"><div class="bp-stat-val" id="bpStR">-</div><div class="bp-stat-lbl">Rating</div></div>
+      </div>
+      <div class="bp-section"><div class="bp-section-title">Rate</div><div class="bp-rate-card"><div><div class="bp-rate-val" id="bpRate"></div><div class="bp-rate-lbl">Hourly</div></div><div id="bpAvailTag"></div></div></div>
+      <div class="bp-section"><div class="bp-section-title">Skills</div><div class="bp-skills" id="bpSkills"></div></div>
+      <div class="bp-section"><div class="bp-section-title">Reviews</div><div class="bp-review-box"><div class="bp-rating-big" id="bpRBig"></div><div><div class="bp-stars" id="bpStars"></div><div style="font-size:11px;color:var(--muted);margin-top:4px" id="bpRevC"></div></div></div></div>
+      <div class="bp-section" style="padding-bottom:30px;"><div class="bp-section-title">Recent Tasks</div><div id="bpTList"></div></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
