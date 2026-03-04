@@ -14,7 +14,7 @@
   --radius:14px;--radius-sm:10px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overscroll-behavior:none}
+html,body{height:100%;overscroll-behavior:none;overflow-x:hidden}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;overflow:hidden}
 
 /* noise overlay */
@@ -57,12 +57,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .nav-post-plus{margin-left:auto;width:22px;height:22px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;line-height:1}
 
 /* ══ MAIN ══ */
-.main{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;min-width:0}
+.main{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;min-width:0;max-width:100%}
 .main::-webkit-scrollbar{width:3px}
 .main::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 /* ══ TOPBAR ══ */
-.topbar{position:sticky;top:0;z-index:150;background:rgba(0,0,0,.94);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.topbar{position:sticky;top:0;z-index:150;background:rgba(0,0,0,.94);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:8px;width:100%;max-width:100%;overflow:hidden}
 .hamburger{display:none;cursor:pointer;width:34px;height:34px;align-items:center;justify-content:center;border-radius:8px;background:var(--surface2);border:1px solid var(--border);flex-shrink:0;font-size:17px}
 .tb-logo{display:flex;align-items:center;gap:7px;cursor:pointer;flex-shrink:0}
 .tb-brand{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;letter-spacing:-1px;color:#fff}
@@ -76,8 +76,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .notif-pip{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#fff;border:1.5px solid var(--bg)}
 
 /* ══ CONTENT ══ */
-.content{padding:16px;flex:1}
-.page{display:none}
+.content{padding:16px;flex:1;overflow-x:hidden;width:100%;max-width:100%}
+.page{display:none;width:100%;max-width:100%;overflow-x:hidden}
 .page.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
@@ -115,14 +115,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .ftab:hover,.ftab.active{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.25);color:#fff}
 
 /* Post card */
-.post-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px;margin-bottom:10px;transition:border-color .2s,transform .2s;animation:fadeUp .4s ease both}
+.post-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px;margin-bottom:10px;transition:border-color .2s,transform .2s;animation:fadeUp .4s ease both;width:100%;max-width:100%;overflow:hidden;word-wrap:break-word}
 .post-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-1px)}
 .post-header{display:flex;align-items:center;gap:9px;margin-bottom:11px}
 .post-av{width:38px;height:38px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Syne',sans-serif;flex-shrink:0}
 .post-author .name{font-size:13px;font-weight:700}
 .post-author .meta{font-size:11px;color:var(--muted);margin-top:1px}
 .post-time{margin-left:auto;font-size:11px;color:var(--muted);flex-shrink:0}
-.post-body{font-size:14px;line-height:1.72;color:rgba(240,240,240,.92);margin-bottom:10px}
+.post-body{font-size:14px;line-height:1.72;color:rgba(240,240,240,.92);margin-bottom:10px;word-wrap:break-word;overflow-wrap:break-word;width:100%}
 .post-body a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3)}
 .post-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
 .post-tag{font-size:10px;color:rgba(255,255,255,.6);padding:2px 8px;background:rgba(255,255,255,.06);border-radius:99px;border:1px solid rgba(255,255,255,.07)}
@@ -177,32 +177,32 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
 
 /* ── Profile card ── */
-.pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .18s,box-shadow .18s;display:flex;flex-direction:column;cursor:pointer}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:visible;transition:border-color .2s,transform .18s,box-shadow .18s;display:flex;flex-direction:column;cursor:pointer}
 .pcard:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.55)}
 
-/* Banner — NOW VISIBLE with rich gradients */
-.pcard-banner{height:82px;position:relative;flex-shrink:0;overflow:hidden}
+/* Banner — rich gradients */
+.pcard-banner{height:76px;position:relative;flex-shrink:0;overflow:hidden;border-radius:14px 14px 0 0}
 .pcard-banner-bg{position:absolute;inset:0}
 .pcard-banner-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.06) 0,rgba(255,255,255,.06) 1px,transparent 1px,transparent 12px)}
 /* dismiss */
 .pcard-dismiss{position:absolute;top:7px;right:7px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#ccc;font-size:11px;transition:all .15s;z-index:5}
 .pcard-dismiss:hover{background:rgba(255,255,255,.2);color:#fff}
 
-/* Avatar — centred, overlapping banner bottom */
-.pcard-av-wrap{position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);z-index:4}
+/* Avatar — sits in pcard-body, overlaps banner via negative margin */
+.pcard-av-wrap{display:flex;justify-content:center;margin-top:-34px;margin-bottom:8px;position:relative;z-index:4}
 .pcard-av{
   width:68px;height:68px;border-radius:50%;
   background:linear-gradient(135deg,#333,#181818);
   border:3px solid #000;
-  box-shadow:0 0 0 2px rgba(255,255,255,.25),0 4px 20px rgba(0,0,0,.8);
+  box-shadow:0 0 0 2px rgba(255,255,255,.3),0 4px 20px rgba(0,0,0,.9);
   display:flex;align-items:center;justify-content:center;
   font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;
-  overflow:hidden;
+  overflow:hidden;flex-shrink:0;
 }
 .pcard-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
 /* Body */
-.pcard-body{padding:40px 12px 13px;text-align:center;display:flex;flex-direction:column;flex:1}
+.pcard-body{padding:0 12px 13px;text-align:center;display:flex;flex-direction:column;flex:1}
 .pcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:2px;display:flex;align-items:center;justify-content:center;gap:3px;flex-wrap:wrap}
 .pcard-handle{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pcard-meta{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;color:var(--muted);margin-bottom:12px;flex-wrap:wrap}
@@ -683,28 +683,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="page active" id="page-feed">
   <div class="feed-layout">
     <div>
-      <!-- Composer -->
-      <div class="composer" style="animation:fadeUp .4s ease both">
-        <div class="composer-row">
-          <div class="post-av" style="margin-top:3px;background:#1e1e1e;">R</div>
-          <textarea id="composeText" placeholder="Share an idea, insight, or question with your network..."></textarea>
-        </div>
-        <div class="composer-tools">
-          <div class="ci-btn" title="Image">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <div class="ci-btn" title="Video">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-          </div>
-          <div class="composer-lens">
-            <span class="clens active" onclick="setLens(this)">#technology</span>
-            <span class="clens" onclick="setLens(this)">#ai</span>
-            <span class="clens" onclick="setLens(this)">#business</span>
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="postNew()" style="flex-shrink:0">Post</button>
-        </div>
-      </div>
-
       <!-- Feed filter -->
       <div class="feed-tabs">
         <div class="ftab active" onclick="setFeedTab(this)">✨ For You</div>
@@ -1245,11 +1223,11 @@ function renderNetwork(list){
         <div class="pcard-banner-bg" style="background:${bg}"></div>
         <div class="pcard-banner-lines"></div>
         <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').style.opacity='0.3';this.closest('.pcard').style.pointerEvents='none'">✕</div>
+      </div>
+      <div class="pcard-body">
         <div class="pcard-av-wrap">
           <div class="pcard-av">${p.l}</div>
         </div>
-      </div>
-      <div class="pcard-body">
         <div class="pcard-name">${p.name}</div>
         <div class="pcard-handle">${p.company}<br>${p.lensEmoji} ${p.subdomain}</div>
         <div class="pcard-meta">
