@@ -51,6 +51,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .agent-dot{width:8px;height:8px;border-radius:50%;background:#fff;margin-left:auto;box-shadow:0 0 6px rgba(255,255,255,.4);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
+/* new post nav item pill */
+.nav-post-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;color:var(--text);font-size:13px;font-weight:600;transition:all .2s;position:relative;user-select:none;border:1px solid rgba(255,255,255,.1);margin-top:4px;background:rgba(255,255,255,.04)}
+.nav-post-item:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
+.nav-post-plus{margin-left:auto;width:22px;height:22px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;line-height:1}
+
 /* ══ MAIN ══ */
 .main{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;min-width:0}
 .main::-webkit-scrollbar{width:3px}
@@ -89,17 +94,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
    ENHANCED FEED PAGE
 ══════════════════════════════════════ */
 .feed-layout{display:grid;grid-template-columns:1fr 290px;gap:16px;align-items:start}
-
-/* Hero greeting strip */
-.feed-hero{background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 100%);border:1px solid var(--border2);border-radius:16px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
-.feed-hero::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
-.feed-hero-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2a2a2a,#111);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
-.feed-hero-text .greeting{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
-.feed-hero-text .sub{font-size:12px;color:var(--text2);margin-top:2px}
-.feed-hero-stats{display:flex;gap:16px;margin-left:auto;flex-shrink:0}
-.fhs{text-align:center}
-.fhs-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#fff}
-.fhs-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 
 /* Composer */
 .composer{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px}
@@ -182,36 +176,34 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* GRID — 2 col on desktop, 2 col on mobile */
 .net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
 
-/* ── Profile card (LinkedIn-style, dark) ── */
+/* ── Profile card ── */
 .pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .18s,box-shadow .18s;display:flex;flex-direction:column;cursor:pointer}
 .pcard:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.55)}
 
-/* Banner */
-.pcard-banner{height:76px;position:relative;flex-shrink:0;overflow:hidden}
-.pcard-banner-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c 0%,#0e0e0e 100%)}
-.pcard-banner-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.024) 0,rgba(255,255,255,.024) 1px,transparent 1px,transparent 14px)}
+/* Banner — NOW VISIBLE with rich gradients */
+.pcard-banner{height:82px;position:relative;flex-shrink:0;overflow:hidden}
+.pcard-banner-bg{position:absolute;inset:0}
+.pcard-banner-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.06) 0,rgba(255,255,255,.06) 1px,transparent 1px,transparent 12px)}
 /* dismiss */
-.pcard-dismiss{position:absolute;top:7px;right:7px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:11px;transition:all .15s;z-index:5}
-.pcard-dismiss:hover{background:rgba(255,255,255,.15);color:#fff}
+.pcard-dismiss{position:absolute;top:7px;right:7px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#ccc;font-size:11px;transition:all .15s;z-index:5}
+.pcard-dismiss:hover{background:rgba(255,255,255,.2);color:#fff}
 
-/* Avatar — centred, 50% outside banner bottom */
-.pcard-av-wrap{position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);z-index:4}
+/* Avatar — centred, overlapping banner bottom */
+.pcard-av-wrap{position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);z-index:4}
 .pcard-av{
-  width:72px;height:72px;border-radius:50%;
+  width:68px;height:68px;border-radius:50%;
   background:linear-gradient(135deg,#333,#181818);
-  /* thick white ring so avatar pops on any banner */
-  border:3px solid #fff;
-  box-shadow:0 0 0 1px rgba(0,0,0,.7),0 4px 20px rgba(0,0,0,.8);
+  border:3px solid #000;
+  box-shadow:0 0 0 2px rgba(255,255,255,.25),0 4px 20px rgba(0,0,0,.8);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;
+  font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;
   overflow:hidden;
 }
 .pcard-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
 /* Body */
-.pcard-body{padding:42px 12px 13px;text-align:center;display:flex;flex-direction:column;flex:1}
+.pcard-body{padding:40px 12px 13px;text-align:center;display:flex;flex-direction:column;flex:1}
 .pcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:2px;display:flex;align-items:center;justify-content:center;gap:3px;flex-wrap:wrap}
-.pcard-verified{width:12px;height:12px;flex-shrink:0;opacity:.6}
 .pcard-handle{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pcard-meta{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;color:var(--muted);margin-bottom:12px;flex-wrap:wrap}
 .pcard-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
@@ -406,16 +398,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .bpmodal-handle{width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin:10px auto 0;flex-shrink:0}
 .bpmodal-scroll{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .bpmodal-scroll::-webkit-scrollbar{display:none}
-.bp-banner{height:140px;position:relative;overflow:hidden;flex-shrink:0;background:linear-gradient(160deg,#1e1e1e 0,#0d0d0d 100%)}
-.bp-banner-tex{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.028) 0,rgba(255,255,255,.028) 1px,transparent 1px,transparent 14px)}
+.bp-banner{height:140px;position:relative;overflow:hidden;flex-shrink:0}
+.bp-banner-tex{position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,rgba(255,255,255,.05) 0,rgba(255,255,255,.05) 1px,transparent 1px,transparent 12px)}
 .bp-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:13px;z-index:5;transition:all .2s}
 .bp-close:hover{background:rgba(255,255,255,.15);color:#fff}
 .bp-av-wrap{position:absolute;left:16px;bottom:-42px;z-index:4}
-.bp-av{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#282828,#181818);border:3.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.5),0 4px 24px rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:#fff}
+.bp-av{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#282828,#181818);border:3.5px solid #000;box-shadow:0 0 0 2px rgba(255,255,255,.25),0 4px 24px rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:#fff}
 .bp-info{padding:52px 16px 14px}
 .bp-name-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
 .bp-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1.2}
-.bp-verified{width:15px;height:15px;opacity:.65;flex-shrink:0}
 .bp-handle{font-size:12px;color:var(--muted);margin-bottom:8px}
 .bp-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .bp-lens-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 11px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#ccc}
@@ -448,6 +439,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .bp-task-meta{font-size:11px;color:var(--muted)}
 @media(min-width:480px){.bpmodal{border-radius:22px;max-height:88vh;margin-bottom:20px}.bpmodal-overlay{align-items:center}}
 
+/* ══ POST MODAL ══ */
+.post-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:30000;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s;padding:0}
+.post-modal-overlay.open{opacity:1;pointer-events:all}
+.post-modal{background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:20px 18px 30px;transform:translateY(60px);transition:transform .28s cubic-bezier(.22,1,.36,1)}
+.post-modal-overlay.open .post-modal{transform:translateY(0)}
+.post-modal-handle{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin:0 auto 18px}
+.post-modal-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;color:#fff;display:flex;align-items:center;gap:8px}
+.post-modal textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;resize:none;outline:none;min-height:100px;margin-bottom:12px;transition:border-color .2s}
+.post-modal textarea:focus{border-color:rgba(255,255,255,.25)}
+.post-modal-tools{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid var(--border)}
+.post-modal-tags{display:flex;gap:5px;flex-wrap:wrap;flex:1}
+@media(min-width:520px){.post-modal{border-radius:20px;margin-bottom:24px}.post-modal-overlay{align-items:center}}
+
 /* ══ RESPONSIVE ══ */
 @media(max-width:768px){
   .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%)}
@@ -464,7 +468,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .net-grid{grid-template-columns:1fr 1fr}
   .premium-plans{grid-template-columns:1fr}
   .task-budget-row,.rate-row{grid-template-columns:1fr}
-  .feed-hero-stats{display:none}
   .lens-grid{grid-template-columns:repeat(4,1fr)}
 }
 @media(max-width:400px){
@@ -525,6 +528,34 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="closeModal('requestModal')">Cancel</button>
       <button class="btn btn-primary btn-sm" onclick="sendRequest()">Send Request 🤝</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW POST MODAL (bottom sheet) -->
+<div class="post-modal-overlay" id="postModal" onclick="if(event.target===this)closePostModal()">
+  <div class="post-modal">
+    <div class="post-modal-handle"></div>
+    <div class="post-modal-title">
+      <div style="width:28px;height:28px;border-radius:50%;background:#1e1e1e;border:1.5px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;">R</div>
+      New Post
+    </div>
+    <textarea id="postModalText" placeholder="Share an idea, insight, or question with your network..."></textarea>
+    <div class="post-modal-tools">
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <div class="ci-btn" title="Image">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="ci-btn" title="Video">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+      </div>
+      <div class="post-modal-tags">
+        <span class="clens active" onclick="setLensModal(this)">#technology</span>
+        <span class="clens" onclick="setLensModal(this)">#ai</span>
+        <span class="clens" onclick="setLensModal(this)">#business</span>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="postNewModal()" style="flex-shrink:0">Post</button>
     </div>
   </div>
 </div>
@@ -604,6 +635,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="nav-lbl">Personal</div>
       <div class="nav-item" onclick="showPage('profile')"><span class="nav-icon">👤</span><span>My Profile</span></div>
       <div class="nav-item" onclick="showPage('agent')"><span class="nav-icon">🤖</span><span>My Agent</span><span class="nav-badge">5</span></div>
+      <!-- NEW POST ITEM — below Agent with (+) button -->
+      <div class="nav-post-item" onclick="openPostModal()">
+        <span class="nav-icon">✏️</span>
+        <span>New Post</span>
+        <span class="nav-post-plus">+</span>
+      </div>
     </div>
     <div class="sb-bottom">
       <div class="user-card" onclick="showPage('profile')">
@@ -646,21 +683,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="page active" id="page-feed">
   <div class="feed-layout">
     <div>
-      <!-- Hero greeting -->
-      <div class="feed-hero" style="animation:fadeUp .4s ease both">
-        <div class="feed-hero-av">R</div>
-        <div class="feed-hero-text">
-          <div class="greeting">Good evening, Ravi 👋</div>
-          <div class="sub">3 new task matches · Agent RAVI-7 is active</div>
-        </div>
-        <div class="feed-hero-stats">
-          <div class="fhs"><div class="fhs-val">1.4k</div><div class="fhs-lbl">Followers</div></div>
-          <div class="fhs"><div class="fhs-val">12</div><div class="fhs-lbl">Tasks</div></div>
-        </div>
-      </div>
-
       <!-- Composer -->
-      <div class="composer" style="animation:fadeUp .4s ease .05s both">
+      <div class="composer" style="animation:fadeUp .4s ease both">
         <div class="composer-row">
           <div class="post-av" style="margin-top:3px;background:#1e1e1e;">R</div>
           <textarea id="composeText" placeholder="Share an idea, insight, or question with your network..."></textarea>
@@ -1067,9 +1091,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="bpmodal">
     <div class="bpmodal-handle"></div>
     <div class="bpmodal-scroll">
-      <div class="bp-banner"><div class="bp-banner-tex"></div><div class="bp-close" onclick="closeBP()">✕</div><div class="bp-av-wrap"><div class="bp-av" id="bpAv"></div></div></div>
+      <div class="bp-banner" id="bpBanner"><div class="bp-banner-tex"></div><div class="bp-close" onclick="closeBP()">✕</div><div class="bp-av-wrap"><div class="bp-av" id="bpAv"></div></div></div>
       <div class="bp-info">
-        <div class="bp-name-row"><div class="bp-name" id="bpName"></div><svg class="bp-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="bp-name-row"><div class="bp-name" id="bpName"></div></div>
         <div class="bp-handle" id="bpHandle"></div>
         <div class="bp-badges" id="bpBadges"></div>
         <div class="bp-bio" id="bpBio"></div>
@@ -1117,6 +1141,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 <script>
 // ══ DATA ══
+// Banner gradients per lens for visible cover photos
+const bannerGradients={
+  technology:'linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0d2137 100%)',
+  business:'linear-gradient(135deg,#1a0f2e 0%,#3b1f5e 50%,#1a0f2e 100%)',
+  creative:'linear-gradient(135deg,#1f0d0d 0%,#4a1e1e 50%,#2d1010 100%)',
+  science:'linear-gradient(135deg,#071e1e 0%,#0f3d3d 50%,#071e1e 100%)',
+  psychology:'linear-gradient(135deg,#12101e 0%,#2d2050 50%,#12101e 100%)',
+};
+
 const bizProfiles=[
   {id:'#XW0018',l:'S',name:'Sara Mehta',handle:'sara_tech',followers:'7.2k',company:'Freelance · Ex-Razorpay',lens:'technology',lensLabel:'Technology',lensEmoji:'💻',subdomain:'Frontend Dev',rate:'₹3,200/hr',avail:true,bio:'Senior frontend developer. 6 years experience. React & Next.js specialist. Built 3 SaaS products.',rating:4.9,tasksDone:8,taskSpent:'₹2,40,000'},
   {id:'#XW0031',l:'A',name:'Arjun Bose',handle:'arjun_ventures',followers:'2.4k',company:'Bose Ventures · Ex-McKinsey',lens:'business',lensLabel:'Business',lensEmoji:'📊',subdomain:'Strategy',rate:'₹4,000/hr',avail:false,bio:'Ex-McKinsey. Built and sold 2 startups. Currently advising 5 early-stage companies on product and GTM.',rating:4.8,tasksDone:14,taskSpent:'₹5,60,000'},
@@ -1153,6 +1186,7 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
 function swTab(el,id){el.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');['tp','ti'].forEach(t=>{const e=document.getElementById(t);if(e)e.style.display=t===id?'block':'none';});}
 function setFeedTab(el){document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
 function setLens(el){document.querySelectorAll('.clens').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function setLensModal(el){el.closest('.post-modal-tags').querySelectorAll('.clens').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
 
 // ══ FEED ══
 function likePost(btn){
@@ -1171,6 +1205,25 @@ function postNew(){
   showToast('✨ Post published!');t.value='';
 }
 
+// ══ POST MODAL ══
+function openPostModal(){
+  document.getElementById('postModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('postModalText').focus(),300);
+  closeSidebar();
+}
+function closePostModal(){
+  document.getElementById('postModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function postNewModal(){
+  const t=document.getElementById('postModalText');
+  if(!t.value.trim()){t.focus();return;}
+  showToast('✨ Post published!');
+  t.value='';
+  closePostModal();
+}
+
 // ══ NETWORK ══
 function setNetTab(tab){netTab=tab;document.querySelectorAll('[id^="ntt-"]').forEach(t=>t.classList.remove('active'));const el=document.getElementById('ntt-'+tab);if(el)el.classList.add('active');filterNetwork();}
 function filterNetwork(){
@@ -1184,10 +1237,12 @@ function renderNetwork(list){
   list=list||bizProfiles;
   const grid=document.getElementById('netGrid');if(!grid)return;
   if(!list.length){grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted);grid-column:1/-1"><div style="font-size:32px;margin-bottom:10px">🔍</div><div>No profiles found.</div></div>`;return;}
-  grid.innerHTML=list.map(p=>`
+  grid.innerHTML=list.map(p=>{
+    const bg=bannerGradients[p.lens]||bannerGradients.technology;
+    return`
     <div class="pcard" onclick="openBP('${p.handle}')">
       <div class="pcard-banner">
-        <div class="pcard-banner-bg"></div>
+        <div class="pcard-banner-bg" style="background:${bg}"></div>
         <div class="pcard-banner-lines"></div>
         <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').style.opacity='0.3';this.closest('.pcard').style.pointerEvents='none'">✕</div>
         <div class="pcard-av-wrap">
@@ -1195,10 +1250,7 @@ function renderNetwork(list){
         </div>
       </div>
       <div class="pcard-body">
-        <div class="pcard-name">
-          ${p.name}
-          <svg class="pcard-verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
+        <div class="pcard-name">${p.name}</div>
         <div class="pcard-handle">${p.company}<br>${p.lensEmoji} ${p.subdomain}</div>
         <div class="pcard-meta">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
@@ -1216,7 +1268,8 @@ function renderNetwork(list){
           </button>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ══ TASKS ══
@@ -1327,6 +1380,15 @@ let _bpC=null,_bpF=new Set();
 function openBP(h){
   const p=bizProfiles.find(x=>x.handle===h);if(!p)return;_bpC=p;
   document.getElementById('bpAv').textContent=p.l;
+  // Set banner gradient based on lens
+  const bg=bannerGradients[p.lens]||bannerGradients.technology;
+  const banner=document.getElementById('bpBanner');
+  if(banner){
+    banner.style.background=bg;
+    // keep texture overlay
+    const tex=banner.querySelector('.bp-banner-tex');
+    if(tex)tex.style.position='absolute';
+  }
   document.getElementById('bpName').textContent=p.name;
   document.getElementById('bpHandle').textContent='@'+p.handle+' · '+p.id;
   document.getElementById('bpBadges').innerHTML='<span class="bp-lens-badge">'+p.lensEmoji+' '+p.lensLabel+' · '+p.subdomain+'</span><span class="'+(p.avail?'bp-avail-yes':'bp-avail-no')+'">'+(p.avail?'● Available':'○ Busy')+'</span>';
