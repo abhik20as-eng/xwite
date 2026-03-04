@@ -143,6 +143,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   line-height:1.3;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
 }
 .post-author .meta{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.3}
+/* follow button on post */
+.post-follow-btn{
+  flex-shrink:0;padding:4px 12px;border-radius:99px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  background:transparent;border:1.5px solid var(--border2);
+  color:var(--gold);font-family:'DM Sans',sans-serif;
+  transition:all .18s;margin-left:auto;
+}
+.post-follow-btn:hover{background:rgba(184,184,76,.12)}
+.post-follow-btn.following{border-color:#333;color:var(--muted);cursor:default}
 .post-time{font-size:11px;color:var(--muted);flex-shrink:0;padding-top:3px}
 
 /* lens badge */
@@ -201,50 +211,141 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ══════════════════════════════════════
    NETWORK PAGE
 ══════════════════════════════════════ */
-.net-search{background:rgba(0,20,20,.6);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:16px;transition:border-color .2s}
+.net-search{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:24px;transition:border-color .2s}
 .net-search:focus-within{border-color:var(--gold)}
 .net-search input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'DM Sans',sans-serif}
 
-/* cards */
-.pcard{
-  background:#111111;
-  border:1px solid #1e1e1e;
-  border-radius:18px;overflow:hidden;
-  transition:border-color .25s,box-shadow .25s,transform .22s;
-  cursor:pointer;margin-bottom:12px;animation:fadeUp .35s ease both;
+/* section heading */
+.net-section-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-left:2px}
+
+/* cover gradients per lens — richer, more visible */
+.cover-tech{background:linear-gradient(135deg,#0d2137 0%,#1a4a7a 50%,#0f3060 100%)}
+.cover-biz{background:linear-gradient(135deg,#1e0a3c 0%,#4a1f7a 50%,#2d1250 100%)}
+.cover-creative{background:linear-gradient(135deg,#2a0808 0%,#6b1f1f 50%,#3d0e0e 100%)}
+.cover-science{background:linear-gradient(135deg,#042222 0%,#0e5454 50%,#073535 100%)}
+.cover-psych{background:linear-gradient(135deg,#140e2a 0%,#3a2870 50%,#1e1545 100%)}
+
+/* online dot */
+.online-dot{position:absolute;width:11px;height:11px;border-radius:50%;border:2px solid #111111}
+.online-dot.on{background:#4ade80;bottom:2px;right:2px}
+.online-dot.off{display:none}
+
+/* ─── LIST cards (Recently Viewed — full-width, cover on top) ─── */
+.net-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+
+.nlist-card{
+  background:#111111;border:1px solid #1e1e1e;
+  border-radius:18px;overflow:hidden;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s,transform .18s;
 }
-.pcard:hover{border-color:rgba(184,184,76,.22);box-shadow:0 6px 30px rgba(0,0,0,.5);transform:translateY(-2px)}
-.pcard-top{display:flex;align-items:center;gap:14px;padding:18px 18px 14px}
-.pcard-av{
-  width:50px;height:50px;border-radius:50%;
-  background:linear-gradient(135deg,var(--brown2),var(--brown));
-  border:2px solid var(--border2);
+.nlist-card:hover{border-color:rgba(184,184,76,.28);box-shadow:0 8px 32px rgba(0,0,0,.5);transform:translateY(-2px)}
+
+/* full-width cover photo */
+.nlist-cover{
+  height:96px;position:relative;overflow:hidden;
+  border-radius:0;flex-shrink:0;
+}
+.nlist-cover-bg{position:absolute;inset:0}
+.nlist-cover-lines{
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(-52deg,rgba(255,255,255,.07) 0,rgba(255,255,255,.07) 1px,transparent 1px,transparent 14px);
+}
+/* bottom vignette on cover */
+.nlist-cover::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50px;
+  background:linear-gradient(transparent,rgba(17,17,17,.9));
+}
+
+/* avatar — sits inside .nlist-info, pulled UP with negative margin */
+.nlist-av-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:-28px;margin-bottom:10px;position:relative;z-index:5;padding:0 16px;
+}
+.nlist-av{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--brown);border:3px solid #111111;
+  box-shadow:0 2px 16px rgba(0,0,0,.7);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--gold);
-  flex-shrink:0;overflow:hidden;
+  font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);
+  position:relative;overflow:hidden;flex-shrink:0;
 }
-.pcard-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.pcard-info{flex:1;min-width:0}
-.pcard-name{
+.nlist-av .online-dot{
+  position:absolute;bottom:2px;right:2px;
+  width:12px;height:12px;border-radius:50%;border:2.5px solid #111111;
+}
+.nlist-av .online-dot.on{background:#4ade80}
+.nlist-av .online-dot.off{display:none}
+
+/* message button sits inline with avatar in av-row */
+.nlist-msg-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:99px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  background:rgba(184,184,76,.1);color:var(--gold);
+  border:1.5px solid rgba(184,184,76,.25);transition:all .18s;
+  flex-shrink:0;
+}
+.nlist-msg-btn:hover{background:rgba(184,184,76,.22);border-color:var(--gold)}
+
+/* text info */
+.nlist-info{padding:0 16px 16px}
+.nlist-name{
   font-family:'Playfair Display',serif;
-  font-size:17px;font-weight:700;color:#F0F0F0;
-  line-height:1.2;margin-bottom:6px;
+  font-size:17px;font-weight:700;color:var(--text);margin-bottom:3px;
 }
-.pcard-skills{display:flex;gap:6px;flex-wrap:wrap}
-.pcard-skill{
-  font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;
+.nlist-skill{
+  display:inline-block;font-size:11px;font-weight:600;color:var(--gold);
   background:rgba(184,184,76,.1);border:1px solid rgba(184,184,76,.2);
-  color:var(--gold);letter-spacing:.2px;font-family:'DM Sans',sans-serif;
+  border-radius:99px;padding:2px 10px;margin-bottom:9px;
 }
-.pcard-msg-pill{
-  flex-shrink:0;display:flex;align-items:center;gap:5px;
-  padding:7px 14px;border-radius:99px;font-size:12px;font-weight:700;
-  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;
-  background:rgba(184,184,76,.12);color:var(--gold);border:1.5px solid var(--border2);
+.nlist-bio{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* ─── GRID cards (Xwite Suggests) ─── */
+.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcard{
+  background:#111111;border:1px solid #1e1e1e;border-radius:16px;
+  overflow:hidden;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+  animation:fadeUp .35s ease both;
+  display:flex;flex-direction:column;
 }
-.pcard-msg-pill:hover{background:rgba(184,184,76,.22);border-color:var(--gold)}
-.pcard-divider-line{height:1px;margin:0 18px;background:linear-gradient(90deg,transparent,rgba(184,184,76,.3) 40%,rgba(184,184,76,.45) 50%,rgba(184,184,76,.3) 60%,transparent)}
-.pcard-bio{font-size:13px;color:var(--text2);line-height:1.7;padding:12px 18px 16px}
+.pcard:hover{border-color:rgba(184,184,76,.22);box-shadow:0 6px 28px rgba(0,0,0,.5);transform:translateY(-2px)}
+/* cover top */
+.pcard-cover{height:80px;position:relative;overflow:hidden;flex-shrink:0}
+.pcard-cover-bg{position:absolute;inset:0}
+.pcard-cover-lines{
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(-52deg,rgba(255,255,255,.07) 0,rgba(255,255,255,.07) 1px,transparent 1px,transparent 14px);
+}
+/* bottom fade on grid cover */
+.pcard-cover::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30px;
+  background:linear-gradient(transparent,rgba(17,17,17,.85));
+}
+.pcard-dismiss{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#ccc;cursor:pointer;z-index:5}
+.pcard-dismiss:hover{background:rgba(255,255,255,.2);color:#fff}
+/* avatar overlap */
+.pcard-av-wrap{display:flex;justify-content:center;margin-top:-26px;position:relative;z-index:4;margin-bottom:6px}
+.pcard-av{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--brown);border:3px solid #111111;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold);
+  position:relative;overflow:hidden;
+}
+/* card body */
+.pcard-body{padding:0 10px 14px;text-align:center;flex:1;display:flex;flex-direction:column}
+.pcard-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.2}
+.pcard-skill-text{font-size:11px;color:var(--text2);margin-bottom:10px;line-height:1.4}
+.pcard-msg-btn{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:7px 0;border-radius:99px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  background:transparent;color:var(--text);
+  border:1.5px solid #2a2a2a;transition:all .2s;margin-top:auto;
+}
+.pcard-msg-btn:hover{background:rgba(184,184,76,.1);border-color:var(--gold);color:var(--gold)}
+
 
 /* ══ CONNECT / TASKS ══ */
 .conn-layout{display:grid;grid-template-columns:1fr 260px;gap:14px;align-items:start}
@@ -699,9 +800,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div class="tb-actions">
         <div class="icon-btn" onclick="showPage('agent')" title="Notifications">🔔<div class="notif-pip"></div></div>
-        <div class="icon-btn" id="ppBtn" onclick="togglePP()" title="People">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
       </div>
     </div>
 
@@ -729,7 +827,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <div class="name">Sara Mehta <span class="lens-badge">Tech</span></div>
             <div class="meta">@sara_tech · Frontend Dev · Ex-Razorpay</div>
           </div>
-          <div class="post-time">42m</div>
+          <button class="post-follow-btn" onclick="event.stopPropagation();postFollow(this)">+ Follow</button>
         </div>
         <div class="post-body">Hot take: most "AI features" being shipped in 2025 are just glorified autocomplete with extra steps. The real breakthrough will be <strong>autonomous reasoning chains</strong> — not text boxes that finish your sentences.</div>
         <div class="post-tags"><span class="post-tag">#technology</span><span class="post-tag">#ai</span><span class="post-tag">#opinion</span></div>
@@ -760,7 +858,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <div class="name">Arjun Bose <span class="lens-badge">Biz</span></div>
             <div class="meta">@arjun_ventures · Strategy · Ex-McKinsey</div>
           </div>
-          <div class="post-time">2h</div>
+          <button class="post-follow-btn" onclick="event.stopPropagation();postFollow(this)">+ Follow</button>
         </div>
         <div class="post-body">Just posted a new task: <strong>Need a React developer for a fintech dashboard.</strong> 3-week project, ₹85k budget. Serious inquiries only — Agent matches preferred.</div>
         <div class="post-tags"><span class="post-tag">#hiring</span><span class="post-tag">#react</span><span class="post-tag">#fintech</span></div>
@@ -777,7 +875,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <div class="name">Neha Sharma <span class="lens-badge">Psych</span></div>
             <div class="meta">@neha_psych · Cognitive Psychology · Ex-NIMHANS</div>
           </div>
-          <div class="post-time">4h</div>
+          <button class="post-follow-btn" onclick="event.stopPropagation();postFollow(this)">+ Follow</button>
         </div>
         <div class="post-body">Behavioral economics explains why people keep using bad software: switching costs are <em>psychological</em>, not just technical. The pain of learning something new outweighs the rational benefit of switching — every time.</div>
         <div class="post-tags"><span class="post-tag">#psychology</span><span class="post-tag">#ux</span><span class="post-tag">#behavioraleconomics</span></div>
@@ -795,7 +893,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <div class="name">Dev Sharma <span class="lens-badge">Tech</span></div>
             <div class="meta">@dev_ai · AI & ML · Stealth AI - Ex-Google</div>
           </div>
-          <div class="post-time">6h</div>
+          <button class="post-follow-btn" onclick="event.stopPropagation();postFollow(this)">+ Follow</button>
         </div>
         <div class="post-body">Ran 3 different LLMs on the same eval benchmark this week. The gap between frontier models and everything else is <strong>not closing</strong> — it's widening. This is going to reshape the entire mid-tier SaaS industry.</div>
         <div class="post-tags"><span class="post-tag">#llm</span><span class="post-tag">#technology</span><span class="post-tag">#saas</span></div>
@@ -861,6 +959,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input id="netSearch" placeholder="Search by name or skill..." oninput="filterNetwork()">
   </div>
+  <div class="net-section-title">Recently Viewed</div>
+  <div class="net-list" id="netListGrid"></div>
+  <div class="net-section-title">Xwite Suggests</div>
   <div class="net-grid" id="netGrid"></div>
 </div>
 
@@ -1236,33 +1337,78 @@ function connectUser(btn,handle,name){
 function setNetTab(tab){netTab=tab;document.querySelectorAll('[id^="ntt-"]').forEach(t=>t.classList.remove('active'));const el=document.getElementById('ntt-'+tab);if(el)el.classList.add('active');filterNetwork();}
 function filterNetwork(){
   const q=(document.getElementById('netSearch')?.value||'').toLowerCase();
-  let list=bizProfiles;
-  if(netTab!=='all')list=list.filter(p=>p.lens===netTab);
-  if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.subdomain.toLowerCase().includes(q)||p.rate.includes(q));
-  renderNetwork(list);
+  const filtered=q?bizProfiles.filter(p=>p.name.toLowerCase().includes(q)||p.subdomain.toLowerCase().includes(q)||p.company.toLowerCase().includes(q)):bizProfiles;
+  renderNetwork(filtered);
 }
+
+const coverClass={technology:'cover-tech',business:'cover-biz',creative:'cover-creative',science:'cover-science',psychology:'cover-psych'};
+
 function renderNetwork(list){
   list=list||bizProfiles;
-  const grid=document.getElementById('netGrid');if(!grid)return;
-  if(!list.length){grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:32px;margin-bottom:10px">🔍</div><div>No profiles found.</div></div>`;return;}
-  grid.innerHTML=list.map((p,i)=>`
-    <div class="pcard" style="animation-delay:${i*.07}s" onclick="openBP('${p.handle}')">
-      <div class="pcard-top">
-        <div class="pcard-av">${p.l}</div>
-        <div class="pcard-info">
-          <div class="pcard-name">${p.name}</div>
-          <div class="pcard-skills">
-            <span class="pcard-skill">${p.subdomain}</span>
-          </div>
+  const listEl=document.getElementById('netListGrid');
+  const gridEl=document.getElementById('netGrid');
+  if(!listEl||!gridEl)return;
+  const listItems=list.slice(0,2);
+  const gridItems=list.slice(2);
+
+  listEl.innerHTML=listItems.length?listItems.map((p,i)=>{
+    const cc=coverClass[p.lens]||'cover-tech';
+    return`
+    <div class="nlist-card" style="animation:fadeUp .38s ease ${i*.1}s both" onclick="openBP('${p.handle}')">
+      <div class="nlist-cover">
+        <div class="nlist-cover-bg ${cc}"></div>
+        <div class="nlist-cover-lines"></div>
+      </div>
+      <div class="nlist-av-row">
+        <div class="nlist-av">
+          ${p.l}
+          <span class="online-dot ${p.avail?'on':'off'}"></span>
         </div>
-        <button class="pcard-msg-pill" onclick="event.stopPropagation();openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
+        <button class="nlist-msg-btn" onclick="event.stopPropagation();openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Message
         </button>
       </div>
-      <div class="pcard-divider-line"></div>
-      <div class="pcard-bio">${p.bio}</div>
-    </div>`).join('');
+      <div class="nlist-info">
+        <div class="nlist-name">${p.name}</div>
+        <span class="nlist-skill">${p.subdomain}</span>
+        <div class="nlist-bio">${p.bio}</div>
+      </div>
+    </div>`;
+  }).join(''):'';
+
+  gridEl.innerHTML=gridItems.length?gridItems.map((p,i)=>{
+    const cc=coverClass[p.lens]||'cover-tech';
+    return`
+    <div class="pcard" style="animation-delay:${i*.07}s" onclick="openBP('${p.handle}')">
+      <div class="pcard-cover">
+        <div class="pcard-cover-bg ${cc}"></div>
+        <div class="pcard-cover-lines"></div>
+        <div class="pcard-dismiss" onclick="event.stopPropagation();this.closest('.pcard').remove()">✕</div>
+      </div>
+      <div class="pcard-av-wrap">
+        <div class="pcard-av">
+          ${p.l}
+          <span class="online-dot ${p.avail?'on':'off'}"></span>
+        </div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-skill-text">${p.subdomain}<br><span style="color:var(--muted);font-size:10px">${p.company.split('·')[0].trim()}</span></div>
+        <button class="pcard-msg-btn" onclick="event.stopPropagation();openChatWith('${p.name}','${p.l}','1e1e1e','${p.id}')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Message
+        </button>
+      </div>
+    </div>`;
+  }).join(''):`<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--muted)">No more suggestions</div>`;
+}
+
+function postFollow(btn){
+  if(btn.classList.contains('following'))return;
+  btn.classList.add('following');
+  btn.textContent='Following';
+  showToast('Following!');
 }
 
 // ══ TASKS ══
